@@ -2,8 +2,10 @@
     "name": "participatory-budgeting",
     "version": "0.1.2",
     "scripts": {
+        "heroku-postbuild": "ng build --prod",
         "ng": "ng",
-        "start": "ng serve",
+        "start": "node server.js",
+        "start-dev": "ng serve",
         "build": "ng build",
         "test": "ng test",
         "lint": "tsc --noEmit && eslint . --ext js,ts,json --quiet --fix",
@@ -28,9 +30,11 @@
         "@angular/router": "~10.1.6",
         "@types/google-maps": "^3.2.2",
         "angular-resize-event": "^2.0.1",
+        "express": "^4.17.1",
         "firebase": "^8.1.1",
         "moment": "^2.29.1",
         "ng-recaptcha": "^6.0.2",
+        "path": "^0.12.7",
         "rxjs": "~6.6.0",
         "tslib": "^2.0.0",
         "zone.js": "~0.10.2"
