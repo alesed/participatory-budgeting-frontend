@@ -1,0 +1,46 @@
+<mat-card id="schedule-detail__inputs">
+  <form id="schedule-detail__form" [formGroup]="_scheduleForm">
+    <mat-form-field>
+      <mat-label>Časové rozmezí</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Začátek" formControlName="dateFrom" />
+        <input matEndDate placeholder="Konec" formControlName="dateTo" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Název</mat-label>
+      <input
+        [readonly]="_isMandatory()"
+        matInput
+        type="text"
+        name="name"
+        formControlName="name"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Popis</mat-label>
+      <textarea
+        rows="12"
+        matInput
+        placeholder="Popis"
+        type="text"
+        formControlName="description"
+      ></textarea>
+    </mat-form-field>
+  </form>
+</mat-card>
+<div id="schedule-detail__actions">
+  <button mat-raised-button color="warn" (click)="_closeDialog()">
+    Zavřít
+  </button>
+  <button
+    [disabled]="!_scheduleForm.valid"
+    mat-raised-button
+    color="primary"
+    (click)="data ? _updateSchedule() : _createSchedule()"
+  >
+    {{ _successButton }}
+  </button>
+</div>

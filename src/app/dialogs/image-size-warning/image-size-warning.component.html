@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Upozornění</h1>
+<div mat-dialog-content>
+  <ng-container *ngIf="!data.allowedType">
+    <p>Podporované typy souborů jsou pouze: <strong>JPG, PNG</strong></p>
+    <br />
+  </ng-container>
+  <p>
+    Velikost souboru je příliš velká:
+    <strong>{{ _fileSize | number: '1.2-2' }} MB</strong>
+  </p>
+  <p>
+    Maximální povolená velikost je:
+    <strong>{{ _fileMaxSize | number: '1.2-2' }} MB</strong>
+  </p>
+</div>
+<div id="warning__actions" mat-dialog-actions>
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="_closeDialog()"
+    cdkFocusInitial
+  >
+    OK
+  </button>
+</div>

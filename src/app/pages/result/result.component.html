@@ -1,0 +1,56 @@
+<div class="page__container">
+  <div id="result__filters">
+    <mat-form-field class="result__filters-input" appearance="outline">
+      <mat-label>Kategorie</mat-label>
+      <mat-select
+        [formControl]="_selectedCategory"
+        name="category"
+        multiple
+        (selectionChange)="_loadCategorizedProjects($event.value)"
+      >
+        <mat-option *ngFor="let option of _categories" [value]="option.value">
+          {{ option.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="result__filters-input" appearance="outline">
+      <mat-label>Řazení</mat-label>
+      <mat-select
+        [formControl]="_selectedSorting"
+        name="category"
+        (selectionChange)="_filterDo()"
+      >
+        <mat-option *ngFor="let option of _sorting" [value]="option.value">
+          {{ option.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="result__filters-input-name" appearance="outline">
+      <mat-label>Název</mat-label>
+      <input
+        matInput
+        placeholder="Název"
+        [(ngModel)]="_textSearch"
+        (input)="_filterDo()"
+      />
+      <mat-icon matSuffix color="primary">create</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div id="result__items">
+    <div
+      *ngFor="let item of _filteredResultItems"
+      class="result__items-card"
+      (click)="_openItemDetail(item.project_id)"
+    >
+      <div class="result__item">
+        <span class="result__item-position"
+          ><strong>Hlasy:</strong>&nbsp;{{ item.number_of_votes }}</span
+        >
+        <span class="result__item-name">{{ item.project_name }}</span>
+      </div>
+    </div>
+  </div>
+</div>

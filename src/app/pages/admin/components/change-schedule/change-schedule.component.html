@@ -1,0 +1,53 @@
+<div>
+  <div *ngFor="let item of _scheduleItems" class="change-schedule__group">
+    <div class="change-schedule__inputs">
+      <mat-form-field class="change-schedule__input" appearance="standard">
+        <mat-label>Časové rozmezí</mat-label>
+        <input
+          readonly
+          matInput
+          type="text"
+          name="date"
+          [ngModel]="
+            _formatDate(item.date_from) + ' - ' + _formatDate(item.date_to)
+          "
+        />
+      </mat-form-field>
+      <mat-form-field appearance="standard" class="full-width">
+        <mat-label>Název</mat-label>
+        <input
+          readonly
+          matInput
+          type="text"
+          name="name"
+          [ngModel]="item.schedule_name"
+        />
+      </mat-form-field>
+    </div>
+    <div class="change-schedule__actions">
+      <button
+        class="change-schedule__actions-change"
+        [class.change-schedule__actions-indent]="
+          !_isMandatory(item.schedule_name)
+        "
+        mat-raised-button
+        (click)="_changeSchedule(item)"
+      >
+        Upravit
+      </button>
+      <button
+        *ngIf="_isMandatory(item.schedule_name)"
+        mat-raised-button
+        color="warn"
+        (click)="_deleteSchedule(item)"
+      >
+        Smazat
+      </button>
+    </div>
+  </div>
+  <div id="change-schedule__add-group">
+    <button mat-mini-fab color="primary" (click)="_addSchedule()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>

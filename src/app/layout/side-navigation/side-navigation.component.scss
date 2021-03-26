@@ -1,0 +1,53 @@
+@import "../../../variables";
+
+.side-nav__container {
+  height: 98vh;
+}
+
+.side-nav__block {
+  margin: 1em 0;
+  list-style-type: none;
+  li {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 1em 0;
+    cursor: pointer;
+
+    font-size: 2vw;
+    font-weight: 400;
+    text-transform: uppercase;
+
+    @media only screen and (max-width: $screen-width-2) {
+      font-size: 3.5vw;
+    }
+
+    /* unvisited link */
+    a:link {
+      color: $primary-text;
+      text-decoration: none;
+    }
+
+    /* visited link */
+    a:visited {
+      color: $primary-text;
+      text-decoration: none;
+    }
+
+    /* mouse over link */
+    a:hover {
+      color: $primary-text;
+    }
+
+    /* selected link */
+    a:active {
+      color: $primary-text-active;
+    }
+
+    .active {
+      background-color: $warn-text;
+      padding: 8px 48px;
+      border-radius: 5px;
+    }
+  }
+}

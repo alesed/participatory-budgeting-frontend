@@ -1,0 +1,61 @@
+<!-- PHONE PART -->
+<ng-container *ngIf="!_insertCodePart">
+  <h2>Je potřeba zadat telefonní číslo</h2>
+  <form
+    class="vote-process__layout"
+    [formGroup]="_phoneForm"
+    (ngSubmit)="_sendCodeToPhone(_phoneForm)"
+  >
+    <mat-form-field appearance="outline">
+      <input
+        matInput
+        placeholder="Telefonní číslo"
+        type="text"
+        formControlName="phone"
+      />
+    </mat-form-field>
+    <div>
+      <button
+        class="vote-process__button"
+        [class.spinner]="_loading"
+        type="submit"
+        id="vote-button"
+        [disabled]="!_phoneForm.valid || _loading"
+        mat-raised-button
+        color="primary"
+      >
+        Ověřit
+      </button>
+    </div>
+  </form>
+</ng-container>
+<!-- VOTE PART -->
+<ng-container *ngIf="_insertCodePart">
+  <h2>Je potřeba zadat ověřovací kód z telefonu</h2>
+  <form
+    class="vote-process__layout"
+    [formGroup]="_codeForm"
+    (ngSubmit)="_verifyCode(_codeForm)"
+  >
+    <mat-form-field appearance="outline">
+      <input
+        matInput
+        placeholder="Ověrovací kód"
+        type="text"
+        formControlName="code"
+      />
+    </mat-form-field>
+    <div>
+      <button
+        class="vote-process__button"
+        [class.spinner]="_loading"
+        type="submit"
+        [disabled]="!_codeForm.valid || _loading"
+        mat-raised-button
+        color="primary"
+      >
+        Odeslat
+      </button>
+    </div>
+  </form>
+</ng-container>

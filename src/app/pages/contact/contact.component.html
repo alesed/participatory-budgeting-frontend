@@ -1,0 +1,134 @@
+<div class="page__container">
+  <div id="contact__form">
+    <mat-card class="contact__form-card">
+      <div class="contact__form-inputs">
+        <form [formGroup]="_contactForm">
+          <!-- NAME -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Jméno</mat-label>
+            <input
+              matInput
+              placeholder="Jméno"
+              type="text"
+              formControlName="name"
+            />
+            <mat-error *ngIf="_contactForm.controls.email.hasError('required')">
+              * Jméno je <strong>povinný</strong> údaj
+            </mat-error>
+          </mat-form-field>
+          <!-- MAIL -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              placeholder="Email"
+              type="text"
+              formControlName="email"
+            />
+            <mat-error
+              *ngIf="
+                _contactForm.controls.email.hasError('email') &&
+                !_contactForm.controls.email.hasError('required')
+              "
+            >
+              * Zadejte správný formát emailové adresy (jan.novak@mail.cz)
+            </mat-error>
+            <mat-error *ngIf="_contactForm.controls.email.hasError('required')">
+              * Email je <strong>povinný</strong> údaj
+            </mat-error>
+          </mat-form-field>
+          <!-- PHONE -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Telefonní číslo</mat-label>
+            <input
+              matInput
+              placeholder="Telefonní číslo"
+              type="text"
+              formControlName="phone"
+            />
+            <mat-error
+              *ngIf="
+                _contactForm.controls.phone.hasError('pattern') &&
+                !_contactForm.controls.phone.hasError('required')
+              "
+            >
+              * Zadejte správný formát telefonního čísla (<strong
+                >111222333</strong
+              >
+              nebo <strong>+420111222333</strong>)
+            </mat-error>
+            <mat-error *ngIf="_contactForm.controls.phone.hasError('required')">
+              * Telefonní číslo je <strong>povinný</strong> údaj
+            </mat-error>
+          </mat-form-field>
+          <!-- MESSAGE -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Zpráva</mat-label>
+            <textarea
+              rows="8"
+              matInput
+              placeholder="Zpráva"
+              type="text"
+              formControlName="message"
+            ></textarea>
+            <mat-error
+              *ngIf="_contactForm.controls.message.hasError('required')"
+            >
+              * Zpráva je <strong>povinný</strong> údaj
+            </mat-error>
+          </mat-form-field>
+        </form>
+        <div id="contact__actions">
+          <div>
+            <button
+              [class.spinner]="_loading"
+              [disabled]="
+                !_recaptchaResponse || !_contactForm.valid || _loading
+              "
+              mat-raised-button
+              color="primary"
+              (click)="_sendEmail()"
+            >
+              Odeslat
+            </button>
+          </div>
+          <div class="contact__recaptcha-container">
+            <re-captcha
+              class="contact__recaptcha"
+              (resolved)="_resolvedReCaptcha($event)"
+              size="compact"
+              siteKey="6LclfeIZAAAAADB2wJGRvUwSg1XRENgC0qA2YpsW"
+            ></re-captcha>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div *ngIf="!_informations" id="contact__informations"></div>
+  <div *ngIf="_informations" id="contact__informations">
+    <div id="contact__informations-text">
+      <div class="contact__output contact__name">
+        {{ _informations.author }}
+      </div>
+      <div class="contact__output contact__place">
+        {{ _informations.address }}
+      </div>
+      <div class="contact__output contact__mail">{{ _informations.email }}</div>
+      <div class="contact__output contact__phone">
+        {{ _informations.phone }}
+      </div>
+    </div>
+    <div id="contact__informations-social">
+      <ul id="social-icons">
+        <li>
+          <a
+            class="social-btn"
+            *ngFor="let icon of _socialSites"
+            [href]="icon.url"
+            ><img [src]="'./assets/' + icon.name + '.png'"
+          /></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

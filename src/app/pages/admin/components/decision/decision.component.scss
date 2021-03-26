@@ -1,0 +1,58 @@
+@import "../../../../../variables";
+
+#decision__filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @media only screen and (max-width: $screen-width-2) {
+    flex-direction: column;
+  }
+
+  .decision__filters-input {
+    flex: 1;
+  }
+  .decision__filters-input-name {
+    flex: 2;
+  }
+}
+
+#decision__items-header {
+  color: $warn-text;
+  font-size: smaller;
+}
+
+#decision__items {
+  display: flex;
+  flex-direction: column;
+
+  .decision__items-card {
+    display: flex;
+    align-items: center;
+    background-color: rgb(240, 239, 239, 0.6);
+    padding: 0 16px;
+    height: 48px;
+    margin-bottom: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(240, 239, 239, 0.9);
+    }
+
+    .decision__item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+
+      .decision__item-position {
+        flex: 1;
+      }
+
+      .decision__item-name {
+        flex: 10;
+      }
+    }
+  }
+}

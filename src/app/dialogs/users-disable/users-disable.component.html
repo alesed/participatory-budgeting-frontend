@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>
+  Opravdu chcete <strong>{{ _title }}</strong> uživatele?
+</h1>
+<div mat-dialog-content>
+  <p>
+    <strong>Jméno:&nbsp;</strong
+    >{{ _selectedUser?.name + " " + _selectedUser?.surname }}
+  </p>
+  <p><strong>Email:&nbsp;</strong>{{ _selectedUser?.email }}</p>
+</div>
+<div mat-dialog-actions>
+  <div class="space-between">
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="_closeDialog(false)"
+      cdkFocusInitial
+    >
+      Ne
+    </button>
+    <button mat-raised-button color="primary" (click)="_closeDialog(true)">
+      Ano
+    </button>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+#users-create__inputs {
+  display: flex;
+  flex-direction: column;
+
+  .toggle-visibility {
+    cursor: pointer;
+  }
+}
+
+#users-create__actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin-top: 16px;
+}

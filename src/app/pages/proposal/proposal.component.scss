@@ -1,0 +1,162 @@
+@import '../../../variables';
+
+.page__container {
+  display: flex;
+  flex-direction: row;
+
+  @media only screen and (max-width: $screen-width-big) {
+    flex-direction: column;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+  .inputs--spacer {
+    width: 50px;
+  }
+
+  .proposal__container {
+    flex: 1;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+    .proposal__map {
+      @media only screen and (max-width: $screen-width-big) {
+        margin-top: 18px;
+      }
+    }
+
+    .proposal__card {
+      min-height: 500px;
+
+      #map {
+        height: 100%;
+      }
+
+      #proposal__map-title {
+        position: absolute;
+        background-color: white;
+        padding: 5px 15px;
+        z-index: 1000;
+        border-bottom: 1px solid;
+        border-right: 1px solid;
+        font-size: 15px;
+      }
+    }
+
+    .proposal__inputs {
+      margin: 10px 20px;
+
+      #expenses-add {
+        .expenses-add-title {
+          text-transform: uppercase;
+          font-weight: 500;
+
+          @media only screen and (max-width: $screen-width-medium) {
+            margin-top: 24px;
+          }
+        }
+
+        .expenses-add-input {
+          @media only screen and (max-width: $screen-width-medium) {
+            width: 100%;
+          }
+        }
+
+        margin: 20px 0;
+        padding: 0 15px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgb(148, 148, 148, 0.1);
+        border-radius: 15px;
+
+        @media only screen and (max-width: $screen-width-medium) {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          button {
+            margin-bottom: 18px;
+          }
+        }
+      }
+
+      #expenses-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgb(148, 148, 148, 0.5);
+        .expenses-header-item {
+          flex: 1;
+          opacity: 0.5;
+        }
+        .expenses-header-action {
+          opacity: 0.5;
+        }
+      }
+
+      #expenses-list {
+        .expenses-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid rgb(148, 148, 148, 0.2);
+          .expenses-item-name {
+            flex: 1;
+          }
+          .expenses-item-cost {
+            flex: 1;
+          }
+        }
+      }
+
+      .inputs-group {
+        display: flex;
+        flex-direction: row;
+        mat-form-field {
+          min-width: 0;
+        }
+
+        .proposal__photo {
+          display: flex;
+          flex-direction: row;
+        }
+
+        @media only screen and (max-width: $screen-width-2) {
+          flex-direction: column;
+        }
+      }
+    }
+
+    .btn--send {
+      margin: 12px 0;
+      display: flex;
+      justify-content: flex-start;
+
+      @media only screen and (max-width: $screen-width-big) {
+        display: none;
+      }
+    }
+
+    .btn--cancel {
+      margin: 12px 0;
+      display: flex;
+      justify-content: flex-end;
+
+      .btn--hidden {
+        display: none;
+      }
+
+      @media only screen and (max-width: $screen-width-big) {
+        justify-content: space-between;
+
+        .btn--hidden {
+          display: inline;
+        }
+      }
+    }
+  }
+}

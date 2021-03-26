@@ -1,0 +1,40 @@
+<div>
+  <div id="decision__filters">
+    <mat-form-field class="decision__filters-input" appearance="outline">
+      <mat-select
+        [formControl]="_selectedCategory"
+        name="category"
+        (selectionChange)="_filterDo()"
+      >
+        <mat-option *ngFor="let option of _categories" [value]="option.value">
+          {{ option.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <span class="spacer decision__filters-input"></span>
+
+    <mat-form-field class="decision__filters-input-name" appearance="outline">
+      <mat-label>Název</mat-label>
+      <input
+        matInput
+        placeholder="Název"
+        [(ngModel)]="_textSearch"
+        (input)="_filterDo()"
+      />
+      <mat-icon matSuffix color="primary">create</mat-icon>
+    </mat-form-field>
+  </div>
+  <div id="decision__items">
+    <div
+      *ngFor="let item of _filteredDecisionItems"
+      class="decision__items-card"
+      [ngStyle]="_getCurrentColor(item.decision)"
+      (click)="_openItemDetail(item.project_id)"
+    >
+      <div class="decision__item">
+        <span class="decision__item-name">{{ item.project_name }}</span>
+      </div>
+    </div>
+  </div>
+</div>

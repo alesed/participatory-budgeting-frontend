@@ -1,0 +1,108 @@
+@import '~@angular/material/theming';
+@import './variables';
+
+@include mat-core();
+
+$pb-primary: (
+  MAIN: #30475e,
+  LIGHT: #436383,
+  DARK: #213141,
+  contrast: (
+    MAIN: #ffffff,
+    LIGHT: #ffffff,
+    DARK: #ffffff,
+  ),
+);
+
+$pb-warn: (
+  MAIN: #f05454,
+  LIGHT: #f05454,
+  DARK: #f05454,
+  contrast: (
+    MAIN: #ffffff,
+    LIGHT: #ffffff,
+    DARK: #ffffff,
+  ),
+);
+
+$participatory-budgeting-primary: mat-palette($pb-primary, MAIN, LIGHT, DARK);
+$participatory-budgeting-accent: mat-palette($mat-pink, A200, A100, A400);
+
+$participatory-budgeting-warn: mat-palette($pb-warn, MAIN, LIGHT, DARK);
+
+$participatory-budgeting-theme: mat-light-theme(
+  (
+    color: (
+      primary: $participatory-budgeting-primary,
+      accent: $participatory-budgeting-accent,
+      warn: $participatory-budgeting-warn,
+    ),
+  )
+);
+
+@include angular-material-theme($participatory-budgeting-theme);
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  text-align: justify;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.page__container {
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+  margin-left: 12vh;
+  margin-right: 12vh;
+  padding-top: 25px;
+
+  @media only screen and (max-width: $screen-width-2) {
+    margin-left: 4vh;
+    margin-right: 4vh;
+  }
+}
+
+.mat-header-cell {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-cell {
+  align-items: center;
+  justify-content: center;
+}
+
+mat-form-field {
+  min-width: 0;
+}
+
+#drawer-container {
+  background-color: $background-primary;
+}
+
+.success-dialog {
+  color: $primary-text !important;
+  background-color: $primary !important;
+  .mat-simple-snackbar-action {
+    color: $warn-text !important;
+  }
+}

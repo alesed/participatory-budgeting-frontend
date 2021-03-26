@@ -1,0 +1,126 @@
+@import '../../../variables';
+
+#nav__container {
+  background-color: $primary;
+  color: $primary-text;
+
+  height: 50px;
+  box-shadow: 0 6px 4px rgba(0, 0, 0, 0.06);
+
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+
+  @media only screen and (max-width: $screen-width-1) {
+    justify-content: space-between;
+    padding: 0 6vw;
+  }
+
+  #nav__links-left,
+  #nav__links-right {
+    flex: 1;
+    @media only screen and (max-width: $screen-width-1) {
+      display: none;
+    }
+  }
+
+  #nav__links-left ul {
+    margin-right: auto;
+    text-align: end;
+  }
+
+  #nav__links-right ul {
+    margin-left: auto;
+    text-align: start;
+  }
+
+  .nav__inline {
+    list-style-type: none;
+
+    .admin-enabled {
+      position: relative;
+      top: 1px;
+    }
+
+    .navigation__admin-icon {
+      position: relative;
+      top: -2px;
+    }
+    li {
+      display: inline;
+      margin: 0 1em;
+
+      font-size: 16px;
+      font-weight: 400;
+      text-transform: uppercase;
+
+      cursor: pointer;
+
+      a {
+        transition: background-color 0.5s;
+      }
+
+      /* unvisited link */
+      a:link {
+        color: $primary-text;
+        text-decoration: none;
+      }
+
+      /* visited link */
+      a:visited {
+        color: $primary-text;
+        text-decoration: none;
+      }
+
+      /* mouse over link */
+      a:hover {
+        color: $primary-text;
+      }
+
+      /* selected link */
+      a:active {
+        color: $primary-text;
+      }
+
+      .active {
+        background-color: $warn-text;
+        padding: 6px 8px;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  #nav__logo {
+    width: 80px;
+    height: 60px;
+    display: inline-block;
+    padding: 0 2vw;
+
+    .circle {
+      position: relative;
+      top: 8px;
+      width: 100%;
+      padding-bottom: 100%;
+      background-color: #ffffff;
+      border: 1px solid $primary;
+      border-radius: 50%;
+
+      .logo {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  #nav__hamburger {
+    display: none;
+    mat-icon {
+      cursor: pointer;
+      font-size: 36px;
+    }
+
+    @media only screen and (max-width: $screen-width-1) {
+      display: inline-block;
+    }
+  }
+}

@@ -1,0 +1,148 @@
+<div *ngIf="_projectData" class="page__container">
+  <div id="detail__header">
+    <button mat-icon-button (click)="_closeDialog()">
+      <mat-icon color="primary">close</mat-icon>
+    </button>
+  </div>
+  <div id="detail__actions">
+    <ng-container *ngIf="_showVoteSection">
+      <button
+        class="detail__btn-vote"
+        mat-raised-button
+        color="primary"
+        [disabled]="!_state.canVote || !_projectData.decision"
+        (click)="_openVoteDialog()"
+        [title]="_getVoteButtonTitle()"
+      >
+        hlasovat
+      </button>
+    </ng-container>
+    <mat-card id="detail__decision" [ngStyle]="_getCurrentDecisionColor()">
+      <span id="detail__decision-title">{{ _getDecisionText() }}</span>
+      <span *ngIf="!_showDecideSection" id="detail__decision-text">
+        {{ _projectData.decision_text }}
+      </span>
+      <input
+        *ngIf="_showDecideSection"
+        matInput
+        placeholder="Zadejte text popisující odůvodnění..."
+        [(ngModel)]="_projectData.decision_text"
+        type="text"
+        name="name"
+      />
+    </mat-card>
+    <ng-container *ngIf="_showDecideSection">
+      <button
+        class="detail__btn-decision"
+        mat-raised-button
+        color="success"
+        [disabled]="_projectData.decision === true"
+        (click)="_decideProject(true)"
+      >
+        podpořit
+      </button>
+      <button
+        class="detail__btn-decision"
+        mat-raised-button
+        color="warn"
+        [disabled]="_projectData.decision === false"
+        (click)="_decideProject(false)"
+      >
+        zamítnout
+      </button>
+    </ng-container>
+  </div>
+  <div id="detail__content">
+    <div id="detail__text">
+      <mat-card id="detail__text-groups">
+        <!-- NAME -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Název</mat-label>
+          <input
+            readonly
+            matInput
+            [ngModel]="_projectData.project_name"
+            type="text"
+            name="name"
+          />
+        </mat-form-field>
+        <!-- AUTHOR -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Autor</mat-label>
+          <input
+            readonly
+            matInput
+            [ngModel]="_projectData.author"
+            type="text"
+            name="name"
+          />
+        </mat-form-field>
+        <!-- CATEGORY -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Kategorie</mat-label>
+          <input
+            readonly
+            matInput
+            [ngModel]="_projectData.category"
+            type="text"
+            name="name"
+          />
+        </mat-form-field>
+        <!-- DESCRIPTION -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Popis</mat-label>
+          <textarea
+            readonly
+            rows="8"
+            matInput
+            [ngModel]="_projectData.description"
+            type="text"
+          ></textarea>
+        </mat-form-field>
+      </mat-card>
+    </div>
+    <div id="detail__others">
+      <mat-card>
+        <div id="detail__graphics">
+          <div id="detail__photo-container">
+            <div id="detail__photo">
+              <img [src]="_projectPhoto?.photo_path" />
+            </div>
+          </div>
+          <div id="detail__map-container">
+            <agm-map
+              id="detail__map"
+              [longitude]="_projectData.geo_longtitude"
+              [latitude]="_projectData.geo_latitude"
+              [zoom]="16"
+              [zoomControl]="false"
+              [streetViewControl]="false"
+            >
+              <agm-marker
+                [longitude]="_projectData.geo_longtitude"
+                [latitude]="_projectData.geo_latitude"
+              ></agm-marker>
+            </agm-map>
+          </div>
+        </div>
+        <div id="detail__expenses">
+          <div id="detail__expenses-title">náklady</div>
+          <div id="detail__expenses-header">
+            <span class="detail__expenses-header-item">Název</span>
+            <span class="detail__expenses-header-item">Cena</span>
+          </div>
+          <div id="detail__expenses-list" *ngFor="let item of _projectExpenses">
+            <div class="detail__expenses-item">
+              <span class="detail__expenses-item-name">
+                {{ item.expense_name }}</span
+              >
+              <span class="detail__expenses-item-cost"
+                >{{ item.expense_cost }} kč</span
+              >
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

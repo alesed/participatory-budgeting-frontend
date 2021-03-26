@@ -1,0 +1,29 @@
+@import '../../../variables';
+
+.page__container {
+  .schedule__card {
+    display: flex;
+    flex-direction: column;
+    .schedule__numerator-circle {
+      background-color: $warn-text;
+      font-weight: bolder;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+
+      color: $primary-text;
+    }
+
+    .schedule__text {
+      padding: 18px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}

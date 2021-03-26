@@ -1,0 +1,54 @@
+@import '../../../../../variables';
+
+#settings__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  padding-top: 8px;
+  padding-bottom: 16px;
+
+  .settings__card {
+    width: 50%;
+    #settings__header {
+      font-size: 24px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    #settings__logo {
+      display: flex;
+      flex-direction: column;
+
+      #settings__logo-circle {
+        margin-right: 16px;
+
+        .circle {
+          border: 1px solid $primary;
+          border-radius: 50%;
+          width: 280px;
+          height: 280px;
+        }
+
+        .circle[src=''] {
+          display: none;
+        }
+      }
+
+      #settings__logo-actions {
+        position: relative;
+        top: 10px;
+        button {
+          margin-right: 6px;
+        }
+      }
+    }
+
+    #settings__contacts {
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}

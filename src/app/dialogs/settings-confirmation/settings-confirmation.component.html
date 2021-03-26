@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Opravdu chcete upravit nastavení?</h1>
+<div mat-dialog-actions>
+  <div class="space-between">
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="_closeDialog()"
+      cdkFocusInitial
+    >
+      Ne
+    </button>
+    <button mat-raised-button color="primary" (click)="_updateSettings()">
+      Ano
+    </button>
+  </div>
+</div>

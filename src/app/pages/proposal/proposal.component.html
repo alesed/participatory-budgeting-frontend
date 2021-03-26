@@ -1,0 +1,240 @@
+<div class="page__container">
+  <div class="proposal__container">
+    <mat-card class="proposal__card" (resized)="_onMapResized($event)">
+      <div class="proposal__inputs">
+        <form [formGroup]="_proposalForm">
+          <!-- NAME -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Název</mat-label>
+            <input
+              matInput
+              placeholder="Název"
+              type="text"
+              formControlName="projectName"
+            />
+            <mat-error
+              *ngIf="_proposalForm.controls.projectName.hasError('required')"
+            >
+              * Název je <strong>povinný</strong> údaj
+            </mat-error>
+            <mat-error
+              *ngIf="_proposalForm.controls.projectName.hasError('maxlength')"
+            >
+              * Překročen maximalní počet znaků (150)
+            </mat-error>
+          </mat-form-field>
+          <!-- AUTHOR -->
+          <div class="inputs-group">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Autor</mat-label>
+              <input
+                matInput
+                placeholder="Autor"
+                type="text"
+                formControlName="author"
+              />
+              <mat-error
+                *ngIf="_proposalForm.controls.author.hasError('required')"
+              >
+                * Autor je <strong>povinný</strong> údaj
+              </mat-error>
+              <mat-error
+                *ngIf="_proposalForm.controls.author.hasError('maxlength')"
+              >
+                * Překročen maximalní počet znaků (150)
+              </mat-error>
+            </mat-form-field>
+            <span class="inputs--spacer"></span>
+            <!-- EMAIL -->
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                placeholder="Email"
+                type="text"
+                formControlName="authorEmail"
+              />
+              <mat-error
+                *ngIf="
+                  _proposalForm.controls.authorEmail.hasError('email') ||
+                  _proposalForm.controls.authorEmail.hasError('required')
+                "
+              >
+                * Zadejte správný formát emailové adresy (jan.novak@mail.cz)
+              </mat-error>
+              <mat-error
+                *ngIf="_proposalForm.controls.authorEmail.hasError('maxlength')"
+              >
+                * Překročen maximalní počet znaků (150)
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- CATEGORY -->
+          <div class="inputs-group">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Kategorie</mat-label>
+              <mat-select formControlName="category">
+                <mat-option
+                  *ngFor="let option of _categories"
+                  [value]="option.value"
+                >
+                  {{ option.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="_proposalForm.controls.category.hasError('required')"
+              >
+                * Kategorie je <strong>povinný</strong> údaj
+              </mat-error>
+            </mat-form-field>
+            <span class="inputs--spacer"></span>
+            <!-- PHOTO -->
+            <div class="proposal__photo">
+              <mat-form-field appearance="legacy" class="full-width">
+                <input
+                  matInput
+                  placeholder="Fotka *"
+                  [ngModel]="_uploadedFile ? _uploadedFile.name : null"
+                  [ngModelOptions]="{ standalone: true }"
+                  type="text"
+                  name="file"
+                  disabled
+                />
+              </mat-form-field>
+
+              <input
+                hidden
+                type="file"
+                #uploader
+                (change)="_uploadFile($event.target)"
+                accept="*.png.jpg"
+              />
+              <button mat-mini-fab color="primary" (click)="uploader.click()">
+                <mat-icon>attach_file</mat-icon>
+              </button>
+            </div>
+          </div>
+          <!-- DESCRIPTION -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Popis</mat-label>
+            <textarea
+              rows="8"
+              matInput
+              placeholder="Popis"
+              type="text"
+              formControlName="description"
+            ></textarea>
+            <mat-error
+              *ngIf="_proposalForm.controls.description.hasError('required')"
+            >
+              * Popis je <strong>povinný</strong> údaj
+            </mat-error>
+            <mat-error
+              *ngIf="_proposalForm.controls.description.hasError('maxlength')"
+            >
+              * Překročen maximalní počet znaků (1500)
+            </mat-error>
+          </mat-form-field>
+        </form>
+        <!-- EXPENSES -->
+        <div id="expenses">
+          <div id="expenses-add">
+            <span class="expenses-add-title">náklady</span>
+            <span class="inputs--spacer"></span>
+            <mat-form-field class="expenses-add-input" appearance="standard">
+              <mat-label>Název</mat-label>
+              <input
+                matInput
+                placeholder="Název"
+                [(ngModel)]="_expenseName"
+                type="text"
+                name="expense-name"
+            /></mat-form-field>
+            <span class="inputs--spacer"></span>
+            <mat-form-field class="expenses-add-input" appearance="standard">
+              <mat-label>Cena</mat-label>
+              <input
+                matInput
+                placeholder="Cena"
+                [(ngModel)]="_expenseCost"
+                type="number"
+                name="expense-cost"
+              />
+            </mat-form-field>
+            <button mat-icon-button color="primary">
+              <mat-icon (click)="_addExpense()">add</mat-icon>
+            </button>
+          </div>
+          <div id="expenses-header">
+            <span class="expenses-header-item">Název</span>
+            <span class="expenses-header-item">Cena</span>
+            <span class="expenses-header-action">Smazat</span>
+          </div>
+          <div id="expenses-list" *ngFor="let expense of _expenses">
+            <div class="expenses-item">
+              <span class="expenses-item-name">{{ expense.name }}</span>
+              <span class="expenses-item-cost">{{ expense.cost }} kč</span>
+              <button
+                (click)="_removeExpense(expense)"
+                mat-icon-button
+                color="warn"
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+    <div class="btn--send">
+      <button
+        [disabled]="!_proposalForm.valid"
+        mat-raised-button
+        color="primary"
+        (click)="_sendProposal()"
+      >
+        Odeslat
+      </button>
+    </div>
+  </div>
+  <div class="proposal__container">
+    <mat-card class="proposal__card proposal__map">
+      <div id="proposal__map-title">
+        <strong>Zaznačte bod na mapě</strong>
+      </div>
+      <agm-map
+        [style.height.px]="_mapHeight"
+        [latitude]="_mapLat"
+        [longitude]="_mapLng"
+        [zoom]="14"
+      >
+        <agm-marker
+          *ngIf="_mapMarker"
+          [latitude]="_mapMarker.lat"
+          [longitude]="_mapMarker.lng"
+        ></agm-marker>
+        <agm-polygon
+          [paths]="_polygonCoords"
+          [fillColor]="'#d9d9d9'"
+          [strokeColor]="'#f05454'"
+          [strokeWeight]="2"
+          (polyClick)="_onMapClick($event)"
+        ></agm-polygon>
+      </agm-map>
+    </mat-card>
+
+    <div class="btn--cancel">
+      <button
+        class="btn--hidden"
+        mat-raised-button
+        color="primary"
+        (click)="_sendProposal()"
+      >
+        Odeslat
+      </button>
+      <button mat-raised-button color="warn" (click)="_discardProposal()">
+        Zahodit
+      </button>
+    </div>
+  </div>
+</div>

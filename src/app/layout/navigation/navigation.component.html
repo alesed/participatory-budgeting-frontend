@@ -1,0 +1,103 @@
+<div *ngIf="_state.subject" id="nav__container">
+  <span id="nav__links-left">
+    <ul class="nav__inline">
+      <li>
+        <a
+          [routerLink]="[_state.subject.name, 'proposal']"
+          routerLinkActive="active"
+          >navrhnout</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="[_state.subject.name, 'vote']"
+          routerLinkActive="active"
+          >hlasovat</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="[_state.subject.name, 'result']"
+          routerLinkActive="active"
+          >projekty</a
+        >
+      </li>
+    </ul>
+  </span>
+
+  <span id="nav__logo">
+    <div
+      [routerLink]="[_state.subject.name, 'home']"
+      [ngStyle]="_getLogoContent()"
+      class="circle clickable"
+    ></div>
+  </span>
+
+  <span id="nav__links-right">
+    <ul class="nav__inline">
+      <li [class.admin-enabled]="user">
+        <a
+          [routerLink]="[_state.subject.name, 'schedule']"
+          routerLinkActive="active"
+          >harmonogram</a
+        >
+      </li>
+      <li [class.admin-enabled]="user">
+        <a
+          [matMenuTriggerFor]="menuHistory"
+          [class.active]="_isHistoryPageActive"
+          >historie</a
+        >
+      </li>
+      <li [class.admin-enabled]="user">
+        <a
+          [routerLink]="[_state.subject.name, 'contact']"
+          routerLinkActive="active"
+          >kontakty</a
+        >
+      </li>
+      <li *ngIf="user" class="navigation__admin-icon">
+        <a [matMenuTriggerFor]="menuAdmin" routerLinkActive="active"
+          ><button mat-icon-button>
+            <mat-icon>admin_panel_settings</mat-icon>
+          </button>
+        </a>
+      </li>
+    </ul>
+  </span>
+
+  <span id="nav__hamburger">
+    <mat-icon (click)="_emitToggleHamburger()">menu</mat-icon>
+  </span>
+</div>
+
+<mat-menu #menuHistory="matMenu">
+  <button
+    *ngFor="let year of _historicalYears"
+    mat-menu-item
+    [routerLink]="[_state.subject?.name, 'history', year]"
+    routerLinkActive="active"
+  >
+    <mat-icon>calendar_today</mat-icon>
+    <span>{{ year }}</span>
+  </button>
+</mat-menu>
+
+<mat-menu #menuAdmin="matMenu">
+  <button mat-menu-item disabled>
+    <mat-icon>account_circle</mat-icon>
+    <span>{{ user?.displayName }}</span>
+  </button>
+  <button
+    mat-menu-item
+    [routerLink]="[_state.subject?.name, 'admin']"
+    routerLinkActive="active"
+  >
+    <mat-icon>privacy_tip</mat-icon>
+    <span>Interní systém</span>
+  </button>
+  <button mat-menu-item (click)="_logout()">
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Odhlásit se</span>
+  </button>
+</mat-menu>

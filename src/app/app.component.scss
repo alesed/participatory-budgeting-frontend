@@ -1,0 +1,11 @@
+@import "../variables";
+
+mat-drawer {
+  background-color: $primary-lighter;
+  color: $primary-text;
+  width: 80vw;
+
+  @media only screen and (min-width: $screen-width-2) {
+    width: 40vw;
+  }
+}

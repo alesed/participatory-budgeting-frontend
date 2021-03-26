@@ -1,0 +1,48 @@
+@import "../../../variables";
+
+.page__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  #home__description {
+    padding: 84px 126px;
+    @media only screen and (max-width: $screen-width-2) {
+      padding: 42px 0;
+    }
+  }
+  #home__harmonogram {
+    mat-horizontal-stepper,
+    mat-vertical-stepper {
+      background-color: inherit;
+    }
+
+    mat-horizontal-stepper {
+      @media only screen and (max-width: $screen-width-1) {
+        display: none;
+      }
+    }
+
+    mat-vertical-stepper {
+      display: none;
+      @media only screen and (max-width: $screen-width-1) {
+        display: block;
+      }
+    }
+  }
+  #home__btn-current {
+    padding-top: 42px;
+
+    button {
+      text-transform: uppercase;
+    }
+  }
+
+  ::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+  }
+
+  ::ng-deep .mat-vertical-stepper-header {
+    pointer-events: none !important;
+  }
+}

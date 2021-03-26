@@ -1,0 +1,13 @@
+#polygon__actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin-bottom: 16px;
+}
+
+#polygon__map {
+  agm-map {
+    height: 750px;
+  }
+}

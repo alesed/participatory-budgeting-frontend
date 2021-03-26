@@ -1,0 +1,42 @@
+<div class="page__container">
+  <div id="home__description">
+    <div>{{ _description }}</div>
+  </div>
+  <div *ngIf="_isStepperReady" id="home__harmonogram">
+    <mat-horizontal-stepper
+      [linear]="true"
+      labelPosition="bottom"
+      [selectedIndex]="_selectedIndex"
+    >
+      <mat-step *ngFor="let step of _steps">
+        <ng-template matStepLabel>
+          <div>{{ step.schedule_name }}</div>
+          <div>
+            {{ step.date_from | date: 'MM/dd/yyyy' }} -
+            {{ step.date_to | date: 'MM/dd/yyyy' }}
+          </div>
+        </ng-template>
+      </mat-step>
+    </mat-horizontal-stepper>
+    <mat-vertical-stepper
+      [linear]="true"
+      labelPosition="bottom"
+      [selectedIndex]="_selectedIndex"
+    >
+      <mat-step *ngFor="let step of _steps">
+        <ng-template matStepLabel>
+          <div>{{ step.schedule_name }}</div>
+          <div>
+            {{ step.date_from | date: 'MM/dd/yyyy' }} -
+            {{ step.date_to | date: 'MM/dd/yyyy' }}
+          </div>
+        </ng-template>
+      </mat-step>
+    </mat-vertical-stepper>
+  </div>
+  <div *ngIf="_isStepperReady" id="home__btn-current">
+    <button mat-raised-button color="warn" (click)="_goToCurrentSection()">
+      {{ _currentButtonName }}
+    </button>
+  </div>
+</div>

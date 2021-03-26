@@ -1,0 +1,149 @@
+<div id="settings__container">
+  <div class="settings__card">
+    <div id="settings__header">Logo</div>
+    <div id="settings__logo">
+      <div id="settings__logo-circle">
+        <img
+          [src]="_uploadedFileUrl ? _uploadedFileUrl : _retrievedPhoto"
+          class="circle"
+        />
+      </div>
+      <div id="settings__logo-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="!_uploadedFile"
+          (click)="_saveFile()"
+        >
+          Uložit
+        </button>
+        <button mat-raised-button (click)="uploader.click()">Nahrát</button>
+        <input
+          hidden
+          type="file"
+          #uploader
+          (change)="_uploadFile($event.target)"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="settings__card">
+    <div id="settings__header">Kontakty</div>
+    <div id="settings__contacts">
+      <form [formGroup]="_contactsGroup">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Jméno</mat-label>
+          <input
+            matInput
+            placeholder="Název"
+            type="text"
+            formControlName="author"
+          />
+          <mat-error
+            *ngIf="_contactsGroup.controls.author.hasError('required')"
+          >
+            Název je <strong>povinný</strong> údaj
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Místo</mat-label>
+          <input
+            matInput
+            placeholder="Místo"
+            type="text"
+            formControlName="address"
+          />
+          <mat-error
+            *ngIf="_contactsGroup.controls.address.hasError('required')"
+          >
+            Místo je <strong>povinný</strong> údaj
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            placeholder="Název"
+            type="text"
+            formControlName="email"
+          />
+          <mat-error
+            *ngIf="
+              _contactsGroup.controls.email.hasError('email') &&
+              !_contactsGroup.controls.email.hasError('required')
+            "
+          >
+            Zadejte správný formát emailové adresy (jan.novak@mail.cz)
+          </mat-error>
+          <mat-error *ngIf="_contactsGroup.controls.email.hasError('required')">
+            Email je <strong>povinný</strong> údaj
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Telefonní číslo</mat-label>
+          <input
+            matInput
+            placeholder="Telefonní číslo"
+            type="text"
+            formControlName="phone"
+          />
+          <mat-error
+            *ngIf="
+              _contactsGroup.controls.phone.hasError('pattern') &&
+              !_contactsGroup.controls.phone.hasError('required')
+            "
+          >
+            Zadejte správný formát telefonního čísla (<strong>111222333</strong>
+            nebo <strong>+420111222333</strong>)
+          </mat-error>
+          <mat-error *ngIf="_contactsGroup.controls.phone.hasError('required')">
+            Telefonní číslo je <strong>povinný</strong> údaj
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Popis</mat-label>
+          <textarea
+            rows="8"
+            matInput
+            placeholder="Popis"
+            type="text"
+            formControlName="description"
+          ></textarea>
+          <mat-error
+            *ngIf="_contactsGroup.controls.description.hasError('required')"
+          >
+            Popis je <strong>povinný</strong> údaj
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Facebook URL</mat-label>
+          <input
+            matInput
+            placeholder="Facebook URL"
+            type="text"
+            formControlName="facebook_url"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Instagram URL</mat-label>
+          <input
+            matInput
+            placeholder="Instagram URL"
+            type="text"
+            formControlName="instagram_url"
+          />
+        </mat-form-field>
+      </form>
+    </div>
+    <div id="settings__contacts-actions">
+      <button
+        [disabled]="!_contactsGroup.valid"
+        mat-raised-button
+        color="primary"
+        (click)="_updateData()"
+      >
+        Uložit
+      </button>
+    </div>
+  </div>
+</div>

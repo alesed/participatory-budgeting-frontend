@@ -1,0 +1,25 @@
+<div class="page__container">
+  <div class="schedule__card" *ngFor="let section of _sections; index as i">
+    <div class="schedule__numerator-circle">{{ i + 1 }}</div>
+    <div class="schedule__text">
+      <p>
+        <span
+          ><h2>
+            <strong>{{ section.schedule_name }}&nbsp;</strong>
+          </h2></span
+        >
+        <span
+          ><strong
+            >{{ section.date_from | date: 'MM/dd/yyyy' }} -
+          </strong></span
+        >
+        <span
+          ><strong>{{ section.date_to | date: 'MM/dd/yyyy' }}</strong></span
+        >
+      </p>
+      <p>
+        {{ section.description }}
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div *ngIf="_state.subject" class="side-nav__container">
+  <ul class="side-nav__block">
+    <li>
+      <a
+        [routerLink]="[_state.subject.name, 'proposal']"
+        routerLinkActive="active"
+        (click)="_emitToggleHamburger()"
+        >navrhnout</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLink]="[_state.subject.name, 'vote']"
+        routerLinkActive="active"
+        (click)="_emitToggleHamburger()"
+        >hlasovat</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLink]="[_state.subject.name, 'result']"
+        routerLinkActive="active"
+        (click)="_emitToggleHamburger()"
+        >projekty</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLink]="[_state.subject.name, 'schedule']"
+        routerLinkActive="active"
+        (click)="_emitToggleHamburger()"
+        >harmonogram</a
+      >
+    </li>
+    <li>
+      <a [matMenuTriggerFor]="menu" [class.active]="_isHistoryPageActive"
+        >historie</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLink]="[_state.subject.name, 'contact']"
+        routerLinkActive="active"
+        (click)="_emitToggleHamburger()"
+        >kontakty</a
+      >
+    </li>
+  </ul>
+</div>
+
+<mat-menu #menu="matMenu">
+  <button
+    *ngFor="let year of _historicalYears"
+    mat-menu-item
+    [routerLink]="[_state.subject?.name, 'history', year]"
+    routerLinkActive="active"
+    (click)="_emitToggleHamburger()"
+  >
+    {{ year }}
+  </button>
+</mat-menu>

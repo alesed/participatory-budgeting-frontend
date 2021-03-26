@@ -1,0 +1,47 @@
+#users__add {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+#users__items {
+  display: flex;
+  flex-direction: column;
+
+  .users__items-card {
+    display: flex;
+    align-items: center;
+    background-color: rgb(240, 239, 239, 0.6);
+    padding: 0 16px;
+    height: 48px;
+    margin-bottom: 2px;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: rgb(240, 239, 239, 0.9);
+    }
+
+    .users__item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+
+      .users__item-position {
+        flex: 1;
+      }
+
+      .users__item-name {
+        flex: 10;
+        display: flex;
+        align-items: center;
+      }
+
+      .users__item-blocked {
+        flex: 2;
+        position: relative;
+        top: 2px;
+      }
+    }
+  }
+}

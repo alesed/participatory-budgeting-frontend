@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Opravdu chcete upravit logo?</h1>
+<div mat-dialog-actions>
+  <div class="space-between">
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="_closeDialog(false)"
+      cdkFocusInitial
+    >
+      Ne
+    </button>
+    <button mat-raised-button color="primary" (click)="_closeDialog(true)">
+      Ano
+    </button>
+  </div>
+</div>

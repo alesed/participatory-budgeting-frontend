@@ -1,0 +1,64 @@
+<div class="page__container">
+  <div id="login__container">
+    <mat-card id="login__card">
+      <div id="login__form">
+        <form [formGroup]="_loginForm">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              placeholder="Email"
+              formControlName="email"
+              type="text"
+              name="email"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Heslo</mat-label>
+            <input
+              matInput
+              [type]="'password'"
+              placeholder="Heslo"
+              formControlName="password"
+              type="text"
+              name="password"
+            />
+          </mat-form-field>
+        </form>
+      </div>
+      <div id="login__actions">
+        <button
+          [disabled]="!_loginForm.valid || !!user"
+          mat-raised-button
+          color="primary"
+          id="login__google"
+          (click)="_loginWithEmailAndPassword()"
+        >
+          přihlásit
+        </button>
+        <button
+          [disabled]="!user"
+          mat-raised-button
+          color="warn"
+          id="login__signout"
+          (click)="_logout()"
+        >
+          odhlásit
+        </button>
+      </div>
+      <div id="login__forgotten-password">
+        <p>
+          <span id="login__text-clickable" (click)="_forgottenPassword()"
+            >Obnovit zapomenuté heslo</span
+          >
+        </p>
+      </div>
+      <div *ngIf="_forgottenPasswordStatus" id="login__email-status">
+        <p>{{ _forgottenPasswordStatus }}</p>
+      </div>
+      <div *ngIf="authError" id="login__status">
+        <p>{{ authError.message }}</p>
+      </div>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<mat-card>
+  <form id="users-create__inputs" [formGroup]="_userForm">
+    <mat-form-field>
+      <mat-label>Jméno</mat-label>
+      <input
+        matInput
+        placeholder="Jméno"
+        formControlName="name"
+        type="text"
+        name="name"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Příjmení</mat-label>
+      <input
+        matInput
+        placeholder="Příjmení"
+        formControlName="surname"
+        type="text"
+        name="surname"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        placeholder="Email"
+        formControlName="email"
+        type="text"
+        name="email"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Heslo</mat-label>
+      <input
+        matInput
+        [type]="_hidePassword ? 'password' : 'text'"
+        placeholder="Heslo"
+        formControlName="password"
+        type="text"
+        name="password"
+      />
+      <mat-icon
+        matSuffix
+        class="toggle-visibility"
+        (click)="_hidePassword = !_hidePassword"
+        >{{ _hidePassword ? "visibility_off" : "visibility" }}</mat-icon
+      >
+    </mat-form-field>
+  </form>
+</mat-card>
+<div id="users-create__actions">
+  <button mat-raised-button color="warn" (click)="_closeDialog()">
+    Zahodit
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!_userForm.valid"
+    (click)="_createUser()"
+  >
+    Vytvořit
+  </button>
+</div>

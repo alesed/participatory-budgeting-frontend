@@ -1,0 +1,24 @@
+<div id="polygon__actions">
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="_pointList.length < 4"
+    (click)="_confirmNewPolygon()"
+  >
+    Uložit vyznačení
+  </button>
+  <button mat-raised-button color="warn" (click)="deleteSelectedShape()">
+    Vymazat body
+  </button>
+</div>
+<div id="polygon__map">
+  <agm-map
+    #polygonMap
+    [latitude]="_mapLat"
+    [longitude]="_mapLng"
+    [zoom]="12"
+    [streetViewControl]="false"
+    (mapReady)="_onMapReady($event)"
+  >
+  </agm-map>
+</div>

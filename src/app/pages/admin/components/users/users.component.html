@@ -1,0 +1,39 @@
+<div>
+  <div id="users__add">
+    <button mat-raised-button color="primary" (click)="_openCreateUserDialog()">
+      Přidat zástupce
+    </button>
+  </div>
+  <div id="users__items">
+    <div *ngFor="let user of _users" class="users__items-card">
+      <div class="users__item">
+        <span class="users__item-name"
+          ><strong>Email:&nbsp;</strong>{{ user.email }}
+        </span>
+        <span class="users__item-name">
+          <strong>Jméno:&nbsp;</strong>{{ user.name + " " + user.surname }}
+        </span>
+        <span class="users__item-blocked">
+          <mat-icon *ngIf="user.isDisabled">block</mat-icon>
+        </span>
+      </div>
+      <div>
+        <button
+          *ngIf="!user.isDisabled"
+          mat-raised-button
+          color="warn"
+          (click)="_disableUserDialog(user)"
+        >
+          Zablokovat
+        </button>
+        <button
+          *ngIf="user.isDisabled"
+          mat-raised-button
+          (click)="_disableUserDialog(user)"
+        >
+          Odblokovat
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
