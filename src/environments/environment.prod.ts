@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  baseUrl: 'https://server-participatory.herokuapp.com/',
   firebaseConfig: {
     apiKey: 'AIzaSyBbwSKYjaUWFVdg5rFw1u4jCFCtIswHcsQ',
     authDomain: 'participatory-budgeting-295014.firebaseapp.com',

@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  baseUrl: 'http://localhost:5000',
   firebaseConfig: {
     apiKey: 'AIzaSyBbwSKYjaUWFVdg5rFw1u4jCFCtIswHcsQ',
     authDomain: 'participatory-budgeting-295014.firebaseapp.com',

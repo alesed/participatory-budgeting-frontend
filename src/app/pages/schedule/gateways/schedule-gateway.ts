@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { ScheduleSection } from '../types/schedule.types';
 
 @Injectable()
@@ -9,6 +10,8 @@ export class ScheduleGateway {
     // empty
   }
 
+  baseUrl = environment.baseUrl;
+
   /**
    * Retrieve schedule rows from DB
    * @param {string} subjectName
@@ -16,7 +19,7 @@ export class ScheduleGateway {
    */
   loadSections(subjectName: string): Observable<ScheduleSection[]> {
     return this._httpClient.get<ScheduleSection[]>(
-      `/api/schedule/${subjectName}`
+      this.baseUrl + `/api/schedule/${subjectName}`
     );
   }
 }

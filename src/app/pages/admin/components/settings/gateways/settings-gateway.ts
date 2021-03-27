@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import {
   SettingsData,
   SettingsPhotoData,
@@ -11,9 +12,11 @@ import {
 export class SettingsGateway {
   constructor(private _httpClient: HttpClient) {}
 
+  baseUrl = environment.baseUrl;
+
   loadSubjectSettingsData(subjectName: string): Observable<SettingsData> {
     return this._httpClient.get<SettingsData>(
-      `/api/admin/settings/${subjectName}`
+      this.baseUrl + `/api/admin/settings/${subjectName}`
     );
   }
 
@@ -21,8 +24,9 @@ export class SettingsGateway {
     subjectName: string,
     photoUrl: string
   ): Observable<SettingsResponse> {
-    return this._httpClient.put<SettingsResponse>(`/api/admin/settings/photo`, <
-      SettingsPhotoData
-    >{ subjectName: subjectName, subjectPhotoUrl: photoUrl });
+    return this._httpClient.put<SettingsResponse>(
+      this.baseUrl + `/api/admin/settings/photo`,
+      <SettingsPhotoData>{ subjectName: subjectName, subjectPhotoUrl: photoUrl }
+    );
   }
 }

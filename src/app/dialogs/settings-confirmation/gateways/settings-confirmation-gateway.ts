@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import {
   SettingsConfirmationData,
   SettingsConfirmationResponse,
@@ -9,6 +10,8 @@ import {
 @Injectable()
 export class SettingsConfirmationGateway {
   constructor(private _httpClient: HttpClient) {}
+
+  baseUrl = environment.baseUrl;
 
   /**
    * Update settings of subject and return success/error response
@@ -19,7 +22,7 @@ export class SettingsConfirmationGateway {
     updateSettings: SettingsConfirmationData
   ): Observable<SettingsConfirmationResponse> {
     return this._httpClient.put<SettingsConfirmationResponse>(
-      `/api/admin/settings/update`,
+      this.baseUrl + `/api/admin/settings/update`,
       updateSettings
     );
   }

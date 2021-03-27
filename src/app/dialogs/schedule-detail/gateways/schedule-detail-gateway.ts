@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import {
   ScheduleDetailCreateData,
   ScheduleDetailData,
@@ -11,6 +12,8 @@ import {
 export class ScheduleDetailGateway {
   constructor(private _httpClient: HttpClient) {}
 
+  baseUrl = environment.baseUrl;
+
   /**
    * Update schedule of subject and return success/error response
    * @param {ScheduleDetailData} createData
@@ -20,7 +23,7 @@ export class ScheduleDetailGateway {
     updateData: ScheduleDetailData
   ): Observable<ScheduleDetailResponse> {
     return this._httpClient.put<ScheduleDetailResponse>(
-      `/api/admin/schedule/update`,
+      this.baseUrl + `/api/admin/schedule/update`,
       updateData
     );
   }
@@ -34,7 +37,7 @@ export class ScheduleDetailGateway {
     createData: ScheduleDetailCreateData
   ): Observable<ScheduleDetailResponse> {
     return this._httpClient.post<ScheduleDetailResponse>(
-      `/api/admin/schedule/create`,
+      this.baseUrl + `/api/admin/schedule/create`,
       createData
     );
   }

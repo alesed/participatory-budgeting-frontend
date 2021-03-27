@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { HomeDescription, HomeSchedule } from '../types/home.types';
 
 @Injectable()
@@ -9,6 +10,8 @@ export class HomeGateway {
     // empty
   }
 
+  baseUrl = environment.baseUrl;
+
   /**
    * Retrieve home description row from DB
    * @param {string} subjectName
@@ -16,7 +19,7 @@ export class HomeGateway {
    */
   loadDescriptionData(subjectName: string): Observable<HomeDescription> {
     return this._httpClient.get<HomeDescription>(
-      `/api/home/description/${subjectName}`
+      this.baseUrl + `/api/home/description/${subjectName}`
     );
   }
 
@@ -27,7 +30,7 @@ export class HomeGateway {
    */
   loadScheduleData(subjectName: string): Observable<HomeSchedule[]> {
     return this._httpClient.get<HomeSchedule[]>(
-      `/api/home/schedule/${subjectName}`
+      this.baseUrl + `/api/home/schedule/${subjectName}`
     );
   }
 }
