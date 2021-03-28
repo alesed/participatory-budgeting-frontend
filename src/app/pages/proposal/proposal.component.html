@@ -186,14 +186,14 @@
         </div>
       </div>
     </mat-card>
-    <div class="btn--send">
+    <div class="btn--cancel">
       <button
-        [disabled]="!_proposalForm.valid"
+        class="btn--hidden"
         mat-raised-button
-        color="primary"
-        (click)="_sendProposal()"
+        color="warn"
+        (click)="_discardProposal()"
       >
-        Odeslat
+        Zahodit
       </button>
     </div>
   </div>
@@ -223,17 +223,22 @@
       </agm-map>
     </mat-card>
 
-    <div class="btn--cancel">
+    <div class="btn--send">
       <button
         class="btn--hidden"
         mat-raised-button
+        color="warn"
+        (click)="_discardProposal()"
+      >
+        Zahodit
+      </button>
+      <button
+        mat-raised-button
         color="primary"
         (click)="_sendProposal()"
+        [disabled]="!_proposalForm.valid"
       >
         Odeslat
-      </button>
-      <button mat-raised-button color="warn" (click)="_discardProposal()">
-        Zahodit
       </button>
     </div>
   </div>
