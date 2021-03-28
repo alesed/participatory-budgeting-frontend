@@ -31,7 +31,7 @@
                 !_contactForm.controls.email.hasError('required')
               "
             >
-              * Zadejte správný formát emailové adresy (jan.novak@mail.cz)
+              * Zadejte správný formát emailové adresy
             </mat-error>
             <mat-error *ngIf="_contactForm.controls.email.hasError('required')">
               * Email je <strong>povinný</strong> údaj
@@ -52,10 +52,7 @@
                 !_contactForm.controls.phone.hasError('required')
               "
             >
-              * Zadejte správný formát telefonního čísla (<strong
-                >111222333</strong
-              >
-              nebo <strong>+420111222333</strong>)
+              * Zadejte správný formát telefonního čísla
             </mat-error>
             <mat-error *ngIf="_contactForm.controls.phone.hasError('required')">
               * Telefonní číslo je <strong>povinný</strong> údaj

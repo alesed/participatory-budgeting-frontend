@@ -5,6 +5,7 @@
 <div mat-dialog-actions>
   <div class="space-between">
     <button
+      [disabled]="_loading"
       mat-raised-button
       color="warn"
       (click)="_closeDialog(false)"
@@ -14,8 +15,9 @@
     </button>
     <button
       mat-raised-button
+      [class.spinner]="_loading"
       color="primary"
-      [disabled]="!_allowYesButton"
+      [disabled]="!_allowYesButton || _loading"
       (click)="_closeDialog(true)"
     >
       Ano

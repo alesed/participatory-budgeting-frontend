@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ResizedEvent } from 'angular-resize-event';
-import { finalize } from 'rxjs/operators';
 import { ImageSizeWarningComponent } from 'src/app/dialogs/image-size-warning/image-size-warning.component';
 import { ProposalConfirmationComponent } from 'src/app/dialogs/proposal-confirmation/proposal-confirmation.component';
 import { ProposalConfirmationDialogData } from 'src/app/dialogs/proposal-confirmation/types/proposal-confirmation.types';
@@ -21,14 +19,10 @@ import {
   PolygonCoord,
   PolygonCoordsData,
 } from '../admin/components/polygon/types/polygon.types';
-import { ProposalGateway } from './gateways/proposal-gateway';
 import {
   ProposalConfirmation,
   ProposalExpense,
-  ProposalFormColumns,
   ProposalMapMarker,
-  ProposalResponse,
-  ProposalSendData,
 } from './types/proposal.types';
 
 const DIALOG_WIDTH = '300px';
@@ -82,13 +76,11 @@ export class ProposalComponent implements OnInit {
   _polygonCoords: PolygonCoord[] = [];
 
   constructor(
-    private _gateway: ProposalGateway,
     private _polygonGateway: PolygonGateway,
     public _dialog: MatDialog,
     private _router: Router,
     private _state: AppStateService,
-    private _snackBar: MatSnackBar,
-    private _firestore: AngularFireStorage
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -131,91 +123,26 @@ export class ProposalComponent implements OnInit {
         photoExists: !!this._uploadedFile,
         expensesExist: this._expenses.length > 0,
         markerExists: !!this._mapMarker,
+
+        uploadedFile: this._uploadedFile,
+        proposalForm: this._proposalForm,
+        mapMarker: this._mapMarker,
+        expenses: this._expenses,
       },
     });
 
-    dialogRef.afterClosed().subscribe((result: ProposalConfirmation) => {
-      if (result === ProposalConfirmation.Send)
-        this._savePhotoToFirebaseStorage();
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result === true) {
+        this._router.navigate([this._state.subject.name, 'vote'], {
+          queryParams: { new: true },
+        });
+      } else if (result === false) {
+        this._snackBar.open(PROPOSAL_ERROR, SNACKBAR_CLOSE, {
+          duration: SNACKBAR_DURATION,
+          panelClass: SNACKBAR_CLASS,
+        });
+      }
     });
-  }
-
-  /**
-   * After dialog confirmation actually save the proposal
-   */
-  private _sendProposalDo(firebasePhotoPathUrl: string): void {
-    const preparedData = this._prepareSendData(firebasePhotoPathUrl);
-
-    this._gateway
-      .uploadProject(preparedData)
-      .subscribe((result: ProposalResponse) => {
-        if (result.success) {
-          this._router.navigate([this._state.subject.name, 'vote'], {
-            queryParams: { new: true },
-          });
-        } else {
-          this._snackBar.open(PROPOSAL_ERROR, SNACKBAR_CLOSE, {
-            duration: SNACKBAR_DURATION,
-            panelClass: SNACKBAR_CLASS,
-          });
-        }
-      });
-    () => {
-      this._snackBar.open(PROPOSAL_ERROR, SNACKBAR_CLOSE, {
-        duration: SNACKBAR_DURATION,
-        panelClass: SNACKBAR_CLASS,
-      });
-    };
-  }
-
-  /**
-   * Get the uploaded file and save it to firebase storage
-   * @returns {AngularFireUploadTask}
-   */
-  private _savePhotoToFirebaseStorage(): void {
-    const filePath = `/images/${this._state.subject.name}/${this._uploadedFile.name}`;
-    const file = this._uploadedFile;
-
-    const fileRef = this._firestore.ref(filePath);
-    const task = this._firestore.upload(filePath, file);
-
-    task
-      .snapshotChanges()
-      .pipe(
-        finalize(() => {
-          fileRef.getDownloadURL().subscribe((url) => {
-            if (url) {
-              this._sendProposalDo(url);
-            }
-          });
-        })
-      )
-      .subscribe();
-  }
-
-  /**
-   * Prepare data to be send to DB including saved picture path in firebase storage
-   * @param {string} photoPath
-   * @returns {ProposalSendData}
-   */
-  private _prepareSendData(photoPath: string): ProposalSendData {
-    return <ProposalSendData>{
-      subjectName: this._state.subject.name,
-      projectName: this._proposalForm.get(ProposalFormColumns.PROJECT_NAME)
-        .value,
-      author: this._proposalForm.get(ProposalFormColumns.AUTHOR).value,
-      authorEmail: this._proposalForm.get(ProposalFormColumns.AUTHOR_EMAIL)
-        .value,
-      category: this._proposalForm.get(ProposalFormColumns.CATEGORY).value,
-      description: this._proposalForm.get(ProposalFormColumns.DESCRIPTION)
-        .value,
-      expenses: this._expenses,
-      mapMarker: this._mapMarker,
-      photo: {
-        photoName: this._uploadedFile.name,
-        photoFirebasePath: photoPath,
-      },
-    };
   }
 
   /**
