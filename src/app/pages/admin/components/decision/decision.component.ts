@@ -66,7 +66,8 @@ export class DecisionComponent implements OnInit {
   private _getProjects(subjectName): void {
     this._gateway.loadDecisionProjectData(subjectName).subscribe((result) => {
       this._decisionItems = result;
-      this._filterDo();
+      if (this._decisionItems && this._decisionItems.length > 0)
+        this._filterDo();
     });
   }
 
