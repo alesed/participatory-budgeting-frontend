@@ -8,8 +8,21 @@
   padding-top: 8px;
   padding-bottom: 16px;
 
+  @media only screen and (max-width: $screen-width-1) {
+    flex-direction: column;
+  }
+
   .settings__card {
     width: 50%;
+
+    @media only screen and (max-width: $screen-width-1) {
+      width: 100%;
+
+      &:last-child {
+        margin-top: 36px;
+      }
+    }
+
     #settings__header {
       font-size: 24px;
       text-transform: uppercase;
@@ -22,6 +35,10 @@
 
       #settings__logo-circle {
         margin-right: 16px;
+
+        @media only screen and (max-width: $screen-width-1) {
+          margin-right: 0;
+        }
 
         .circle {
           border: 1px solid $primary;

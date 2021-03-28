@@ -1,4 +1,4 @@
-@import "../../../variables";
+@import '../../../variables';
 
 .page__container {
   display: flex;
@@ -7,6 +7,7 @@
 
   #home__description {
     padding: 84px 126px;
+    text-align: justify;
     @media only screen and (max-width: $screen-width-2) {
       padding: 42px 0;
     }

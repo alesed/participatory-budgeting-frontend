@@ -5,19 +5,20 @@
     </button>
   </div>
   <div id="users__items">
-    <div *ngFor="let user of _users" class="users__items-card">
+    <div
+      *ngFor="let user of _users"
+      class="users__items-card"
+      [class.users__blocked-bg]="user.isDisabled"
+    >
       <div class="users__item">
         <span class="users__item-name"
           ><strong>Email:&nbsp;</strong>{{ user.email }}
         </span>
         <span class="users__item-name">
-          <strong>Jméno:&nbsp;</strong>{{ user.name + " " + user.surname }}
-        </span>
-        <span class="users__item-blocked">
-          <mat-icon *ngIf="user.isDisabled">block</mat-icon>
+          <strong>Jméno:&nbsp;</strong>{{ user.name + ' ' + user.surname }}
         </span>
       </div>
-      <div>
+      <div class="users__actions">
         <button
           *ngIf="!user.isDisabled"
           mat-raised-button

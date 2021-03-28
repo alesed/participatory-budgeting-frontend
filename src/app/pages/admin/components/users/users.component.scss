@@ -1,3 +1,5 @@
+@import '../../../../../variables';
+
 #users__add {
   display: flex;
   justify-content: flex-end;
@@ -17,6 +19,13 @@
     margin-bottom: 2px;
     border-radius: 5px;
 
+    @media only screen and (max-width: $screen-width-bigger) {
+      height: inherit;
+      flex-direction: column;
+      padding: 8px 16px;
+      align-items: flex-start;
+    }
+
     &:hover {
       background-color: rgb(240, 239, 239, 0.9);
     }
@@ -27,6 +36,10 @@
       justify-content: space-between;
       width: 100%;
 
+      @media only screen and (max-width: $screen-width-bigger) {
+        flex-direction: column;
+      }
+
       .users__item-position {
         flex: 1;
       }
@@ -35,13 +48,32 @@
         flex: 10;
         display: flex;
         align-items: center;
-      }
 
-      .users__item-blocked {
-        flex: 2;
-        position: relative;
-        top: 2px;
+        @media only screen and (max-width: $screen-width-bigger) {
+          &:first-child {
+            margin-top: 6px;
+          }
+
+          margin-bottom: 6px;
+        }
       }
     }
+  }
+
+  .users__blocked-bg {
+    background-color: rgb(220 29 29 / 20%);
+
+    &:hover {
+      background-color: rgb(220 29 29 / 10%);
+    }
+  }
+}
+
+.users__actions {
+  display: flex;
+
+  @media only screen and (max-width: $screen-width-bigger) {
+    flex-direction: row;
+    padding-bottom: 4px;
   }
 }
