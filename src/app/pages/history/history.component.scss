@@ -1,4 +1,4 @@
-@import "../../../variables";
+@import '../../../variables';
 
 .page__container {
   #history__filters {
@@ -45,6 +45,10 @@
 
         .history__item-position {
           flex: 1;
+
+          @media only screen and (max-width: $screen-width-2) {
+            flex: 3;
+          }
         }
 
         .history__item-name {
