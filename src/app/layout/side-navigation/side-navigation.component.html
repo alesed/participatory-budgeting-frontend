@@ -45,6 +45,12 @@
         >kontakty</a
       >
     </li>
+    <!-- ADMIN -->
+    <li *ngIf="user">
+      <a [matMenuTriggerFor]="menuAdmin" [class.active]="_isAdminPageActive"
+        >administrace</a
+      >
+    </li>
   </ul>
 </div>
 
@@ -57,5 +63,25 @@
     (click)="_emitToggleHamburger()"
   >
     {{ year }}
+  </button>
+</mat-menu>
+
+<mat-menu #menuAdmin="matMenu">
+  <button mat-menu-item disabled>
+    <mat-icon>account_circle</mat-icon>
+    <span>{{ user?.displayName }}</span>
+  </button>
+  <button
+    mat-menu-item
+    [routerLink]="[_state.subject?.name, 'admin']"
+    routerLinkActive="active"
+    (click)="_emitToggleHamburger()"
+  >
+    <mat-icon>privacy_tip</mat-icon>
+    <span>Interní systém</span>
+  </button>
+  <button mat-menu-item (click)="_logout()">
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Odhlásit se</span>
   </button>
 </mat-menu>
