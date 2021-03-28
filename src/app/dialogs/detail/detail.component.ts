@@ -186,6 +186,8 @@ export class DetailComponent implements OnInit {
    * @param sizeEvent
    */
   _onMapResized(sizeEvent: ResizedEvent): void {
-    this._mapHeight = sizeEvent.newHeight - 15.34;
+    const newHeight = sizeEvent.newHeight - 15.34;
+
+    this._mapHeight = newHeight < 140 ? 140 : newHeight;
   }
 }
