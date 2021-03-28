@@ -153,4 +153,17 @@ export class VoteComponent implements OnInit {
       };
     }
   }
+
+  /**
+   * Return background image of card covered in item square
+   * @param {string} photoPath
+   * @returns {CSS background-image property + styles}
+   */
+  _getImageContent(photoPath: string): Record<string, unknown> {
+    return {
+      'background-image': `url(${photoPath})`,
+      'background-size': 'cover',
+      'background-position': 'center',
+    };
+  }
 }

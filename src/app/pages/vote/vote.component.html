@@ -34,11 +34,14 @@
       [ngStyle]="_getDecisionColor(item.decision)"
       class="vote__items-card"
     >
-      <div class="vote__item" (click)="_openItemDetail(item.project_id)">
+      <div
+        class="vote__item"
+        (click)="_openItemDetail(item.project_id)"
+        [ngStyle]="_getImageContent(item.photo_path)"
+      >
         <div class="vote__item-name">
           <span class="vote__text">{{ item.project_name }}</span>
         </div>
-        <img [src]="item.photo_path" />
       </div>
     </div>
   </div>
