@@ -40,7 +40,7 @@ export class UsersComponent implements OnInit {
     this._getAllSubjectUsers();
 
     this._authService.eventAuthError$.subscribe((error) => {
-      if (!error) return;
+      if (!error || this._isFirstUserLoad) return;
       this._snackBar.open(CREATE_ERROR, SNACKBAR_CLOSE, {
         duration: SNACKBAR_DURATION,
         panelClass: SNACKBAR_CLASS,

@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
   _forgottenPasswordStatus: string;
   user: firebase.User;
 
+  _loading = false;
+
   _loginForm = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required]),
@@ -29,6 +31,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this._authService.eventAuthError$.subscribe((data: LoginError) => {
+      this._loading = false;
+
       this.authError = data;
     });
 
@@ -41,6 +45,8 @@ export class LoginComponent implements OnInit {
    * Firebase login - basic email/password method
    */
   _loginWithEmailAndPassword(): void {
+    this._loading = true;
+
     this._authService.login(
       this._loginForm.value.email,
       this._loginForm.value.password

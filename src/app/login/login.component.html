@@ -28,7 +28,8 @@
       </div>
       <div id="login__actions">
         <button
-          [disabled]="!_loginForm.valid || !!user"
+          [disabled]="!_loginForm.valid || !!user || _loading"
+          [class.spinner]="_loading"
           mat-raised-button
           color="primary"
           id="login__google"
@@ -37,7 +38,7 @@
           přihlásit
         </button>
         <button
-          [disabled]="!user"
+          [disabled]="!user || _loading"
           mat-raised-button
           color="warn"
           id="login__signout"

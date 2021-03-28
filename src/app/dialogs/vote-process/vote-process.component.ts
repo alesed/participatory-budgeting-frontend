@@ -72,7 +72,7 @@ export class VoteProcessComponent implements AfterViewInit {
               this._loading = false;
             })
             .catch((error) => {
-              console.log(error);
+              console.error(error);
             });
         } else {
           this._dialogRef.close(result);
@@ -90,8 +90,7 @@ export class VoteProcessComponent implements AfterViewInit {
         this._fireAuth.signOut();
         this._voteForProject(this._phoneForm, this.data);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         this._loading = false;
       });
   }

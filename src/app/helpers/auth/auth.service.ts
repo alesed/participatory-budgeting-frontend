@@ -10,6 +10,8 @@ import { environment } from 'src/environments/environment';
 import { UserDetails } from './types/auth.types';
 
 const LOGIN_ERROR = 'Učet neexistuje nebo byl zablokován!';
+const LOGIN_BAD_CREDENTIALS =
+  'Zadali jste špatné heslo nebo neexistující účet!';
 
 @Injectable({
   providedIn: 'root',
@@ -100,8 +102,8 @@ export class AuthService {
               this._router.navigate([this._state.subject.name, 'admin']);
             }
           })
-          .catch((error) => {
-            this.eventAuthError.next(error);
+          .catch(() => {
+            this.eventAuthError.next({ message: LOGIN_BAD_CREDENTIALS });
           });
       });
   }
@@ -130,15 +132,20 @@ export class AuthService {
           this._router.navigate([this._state.subject.name, 'admin']);
           tempApp
             .delete()
-            .then(() =>
-              this.getAllUsersExcludingOwner(this._state.subject.name)
-            )
+            .then(() => {
+              this.getAllUsersExcludingOwner(this._state.subject.name);
+            })
             .catch((error) => this.eventAuthError.next(error));
         });
       })
       .catch((error) => {
+        this._deleteTempApp(tempApp);
         this.eventAuthError.next(error);
       });
+  }
+
+  private _deleteTempApp(tempApp: firebase.app.App): void {
+    tempApp.delete();
   }
 
   /**
@@ -206,7 +213,6 @@ export class AuthService {
    * Logout user from current session
    */
   logout(): Promise<void> {
-    console.log('procAUTH');
     return this._fireAuth.signOut().then(() => {
       this._router.navigate([this._state.subject.name, 'home']);
     });
