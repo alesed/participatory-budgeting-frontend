@@ -5,7 +5,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize } from 'rxjs/operators';
 import { ImageSizeWarningComponent } from 'src/app/dialogs/image-size-warning/image-size-warning.component';
+import { SettingsConfirmationGateway } from 'src/app/dialogs/settings-confirmation/gateways/settings-confirmation-gateway';
 import { SettingsConfirmationComponent } from 'src/app/dialogs/settings-confirmation/settings-confirmation.component';
+import { SettingsConfirmationResponse } from 'src/app/dialogs/settings-confirmation/types/settings-confirmation.types';
 import { SettingsPhotoConfirmationComponent } from 'src/app/dialogs/settings-photo-confirmation/settings-photo-confirmation.component';
 import { AppStateService } from 'src/app/services/app-state.service';
 import {
@@ -33,6 +35,9 @@ const CHANGE_ERROR = 'Při změně nastavení systému došlo k chybě!';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
+  _loadingLogo = false;
+  _loadingSettings = false;
+
   _uploadedFile: File;
   _uploadedFileUrl: string;
 
@@ -54,6 +59,7 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private _gateway: SettingsGateway,
+    private _gatewayConfirmation: SettingsConfirmationGateway,
     public _dialog: MatDialog,
     private _state: AppStateService,
     private _snackBar: MatSnackBar,
@@ -123,6 +129,8 @@ export class SettingsComponent implements OnInit {
    * Save logo to firebase storage
    */
   private _saveLogoToFirebaseStorage(): void {
+    this._loadingLogo = true;
+
     const filePath = `/logo/${this._state.subject.name}`;
     const file = this._uploadedFile;
 
@@ -162,6 +170,8 @@ export class SettingsComponent implements OnInit {
             panelClass: SNACKBAR_CLASS,
           });
         }
+
+        this._loadingLogo = false;
       });
   }
 
@@ -185,18 +195,32 @@ export class SettingsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((success: boolean) => {
       if (success) {
-        this._loadProjectSettings();
-        this._snackBar.open(CHANGE_SUCCESS, SNACKBAR_CLOSE, {
-          duration: SNACKBAR_DURATION,
-          panelClass: SNACKBAR_CLASS,
-        });
-      } else if (success === false) {
-        this._snackBar.open(CHANGE_ERROR, SNACKBAR_CLOSE, {
-          duration: SNACKBAR_DURATION,
-          panelClass: SNACKBAR_CLASS,
-        });
+        this._loadingSettings = true;
+
+        this._updateSettings();
       }
     });
+  }
+
+  private _updateSettings(): void {
+    this._gatewayConfirmation
+      .updateSettings(this._getUpdateData())
+      .subscribe((result: SettingsConfirmationResponse) => {
+        if (result.success) {
+          this._loadProjectSettings();
+          this._snackBar.open(CHANGE_SUCCESS, SNACKBAR_CLOSE, {
+            duration: SNACKBAR_DURATION,
+            panelClass: SNACKBAR_CLASS,
+          });
+        } else {
+          this._snackBar.open(CHANGE_ERROR, SNACKBAR_CLOSE, {
+            duration: SNACKBAR_DURATION,
+            panelClass: SNACKBAR_CLASS,
+          });
+        }
+
+        this._loadingSettings = false;
+      });
   }
 
   private _getUpdateData(): SettingsData {

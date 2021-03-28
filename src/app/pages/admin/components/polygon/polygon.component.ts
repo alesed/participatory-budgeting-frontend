@@ -24,6 +24,8 @@ const POLYGON_ERROR = 'Při vymezování oblasti došlo k chybě!';
   styleUrls: ['./polygon.component.scss'],
 })
 export class PolygonComponent implements OnInit {
+  _loading = false;
+
   _pointList: PolygonCoord[] = [];
   _drawingManager: google.maps.drawing.DrawingManager;
   _selectedShape: google.maps.Polygon;
@@ -148,7 +150,11 @@ export class PolygonComponent implements OnInit {
     });
 
     confirmDialog.afterClosed().subscribe((result) => {
-      if (result === true) this._updatePolygon();
+      if (result === true) {
+        this._loading = true;
+
+        this._updatePolygon();
+      }
     });
   }
 
@@ -178,6 +184,8 @@ export class PolygonComponent implements OnInit {
             panelClass: SNACKBAR_CLASS,
           });
         }
+
+        this._loading = false;
       });
   }
 

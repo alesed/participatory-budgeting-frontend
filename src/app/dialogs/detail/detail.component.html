@@ -104,7 +104,7 @@
     <div id="detail__others">
       <mat-card>
         <div id="detail__graphics">
-          <div id="detail__photo-container">
+          <div id="detail__photo-container" (resized)="_onMapResized($event)">
             <div id="detail__photo">
               <img [src]="_projectPhoto?.photo_path" />
             </div>
@@ -112,6 +112,7 @@
           <div id="detail__map-container">
             <agm-map
               id="detail__map"
+              [style.height.px]="_mapHeight"
               [longitude]="_projectData.geo_longtitude"
               [latitude]="_projectData.geo_latitude"
               [zoom]="16"

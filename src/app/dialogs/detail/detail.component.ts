@@ -5,6 +5,7 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ResizedEvent } from 'angular-resize-event';
 import { forkJoin } from 'rxjs';
 import { AppStateService } from 'src/app/services/app-state.service';
 import {
@@ -48,6 +49,8 @@ export class DetailComponent implements OnInit {
   _projectData: DetailProjectData;
   _projectPhoto: DetailPhotoData;
   _projectExpenses: DetailExpensesData[];
+
+  _mapHeight: number;
 
   constructor(
     public _state: AppStateService,
@@ -176,5 +179,13 @@ export class DetailComponent implements OnInit {
     return !this._state.canVote || !this._projectData.decision
       ? VOTE_BUTTON_TITLE
       : '';
+  }
+
+  /**
+   * Modify map height depending on curret height (every time size changes)
+   * @param sizeEvent
+   */
+  _onMapResized(sizeEvent: ResizedEvent): void {
+    this._mapHeight = sizeEvent.newHeight - 15.34;
   }
 }

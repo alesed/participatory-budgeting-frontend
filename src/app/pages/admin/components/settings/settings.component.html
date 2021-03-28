@@ -12,8 +12,9 @@
         <button
           mat-raised-button
           color="primary"
-          [disabled]="!_uploadedFile"
+          [disabled]="!_uploadedFile || _loadingLogo"
           (click)="_saveFile()"
+          [class.spinner]="_loadingLogo"
         >
           Uložit
         </button>
@@ -42,7 +43,7 @@
           <mat-error
             *ngIf="_contactsGroup.controls.author.hasError('required')"
           >
-            Název je <strong>povinný</strong> údaj
+            * Název je <strong>povinný</strong> údaj
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width">
@@ -56,7 +57,7 @@
           <mat-error
             *ngIf="_contactsGroup.controls.address.hasError('required')"
           >
-            Místo je <strong>povinný</strong> údaj
+            * Místo je <strong>povinný</strong> údaj
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width">
@@ -73,10 +74,10 @@
               !_contactsGroup.controls.email.hasError('required')
             "
           >
-            Zadejte správný formát emailové adresy (jan.novak@mail.cz)
+            * Zadejte správný formát emailové adresy
           </mat-error>
           <mat-error *ngIf="_contactsGroup.controls.email.hasError('required')">
-            Email je <strong>povinný</strong> údaj
+            * Email je <strong>povinný</strong> údaj
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width">
@@ -93,11 +94,10 @@
               !_contactsGroup.controls.phone.hasError('required')
             "
           >
-            Zadejte správný formát telefonního čísla (<strong>111222333</strong>
-            nebo <strong>+420111222333</strong>)
+            * Zadejte správný formát telefonního čísla
           </mat-error>
           <mat-error *ngIf="_contactsGroup.controls.phone.hasError('required')">
-            Telefonní číslo je <strong>povinný</strong> údaj
+            * Telefonní číslo je <strong>povinný</strong> údaj
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width">
@@ -112,7 +112,7 @@
           <mat-error
             *ngIf="_contactsGroup.controls.description.hasError('required')"
           >
-            Popis je <strong>povinný</strong> údaj
+            * Popis je <strong>povinný</strong> údaj
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width">
@@ -137,7 +137,8 @@
     </div>
     <div id="settings__contacts-actions">
       <button
-        [disabled]="!_contactsGroup.valid"
+        [disabled]="!_contactsGroup.valid || _loadingSettings"
+        [class.spinner]="_loadingSettings"
         mat-raised-button
         color="primary"
         (click)="_updateData()"
