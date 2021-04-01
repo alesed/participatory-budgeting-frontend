@@ -144,20 +144,21 @@ export class DetailComponent implements OnInit {
    */
   _openVoteDialog(): void {
     const dialogRef = this._dialog.open(VoteProcessComponent, {
+      maxWidth: 450,
       disableClose: false,
       data: this.data.projectId,
     });
 
     dialogRef.afterClosed().subscribe((response: VoteProcessResponse) => {
-      if (response.success === true) {
+      if (response?.success === true) {
         this._dialogRef.close(response);
         return;
+      } else if (response?.success === false) {
+        this._snackBar.open(VOTE_ERROR + response.message, SNACKBAR_CLOSE, {
+          duration: SNACKBAR_DURATION,
+          panelClass: SNACKBAR_CLASS,
+        });
       }
-
-      this._snackBar.open(VOTE_ERROR + response.message, SNACKBAR_CLOSE, {
-        duration: SNACKBAR_DURATION,
-        panelClass: SNACKBAR_CLASS,
-      });
     });
   }
 

@@ -55,7 +55,8 @@ export class VoteProcessComponent implements AfterViewInit {
 
   _sendCodeToPhone(form: FormGroup): void {
     this._loading = true;
-    const phoneNumber = form.value.phone;
+    let phoneNumber = form.value.phone;
+    if (phoneNumber.split('').length === 9) phoneNumber = '+420' + phoneNumber;
 
     this._gateway
       .checkVotes(phoneNumber)
@@ -64,7 +65,7 @@ export class VoteProcessComponent implements AfterViewInit {
           const appVerifier = this._windowRef.recaptchaVerifier;
 
           this._fireAuth
-            .signInWithPhoneNumber(form.value.phone, appVerifier)
+            .signInWithPhoneNumber(phoneNumber, appVerifier)
             .then((result: firebase.auth.ConfirmationResult) => {
               this._windowRef.confirmationResult = result;
 
