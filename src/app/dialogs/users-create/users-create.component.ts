@@ -18,7 +18,7 @@ export class UsersCreateComponent implements OnInit {
     ]),
   });
 
-  _hidePassword = true;
+  _hidePassword = false;
 
   constructor(
     public _dialogRef: MatDialogRef<UsersCreateComponent>,
@@ -26,14 +26,35 @@ export class UsersCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // empty
+    this._getRandomlyGeneratedPassword();
   }
 
+  /**
+   * Close dialog
+   */
   _closeDialog(): void {
     this._dialogRef.close(null);
   }
 
+  /**
+   * Close dialog with entered form
+   */
   _createUser(): void {
     this._dialogRef.close(this._userForm.value);
+  }
+
+  /**
+   * Create randomly generated initial password
+   */
+  private _getRandomlyGeneratedPassword(): void {
+    const generatedPassword = Math.random().toString(36).slice(2);
+    console.log(generatedPassword);
+
+    this._userForm.setValue({
+      name: null,
+      surname: null,
+      email: null,
+      password: generatedPassword,
+    });
   }
 }
