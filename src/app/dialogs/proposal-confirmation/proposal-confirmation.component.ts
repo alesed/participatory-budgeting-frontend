@@ -16,7 +16,7 @@ const TITLE_SEND = 'Odevzdat';
 const TITLE_SEND_NOT_POSSIBLE = 'Nelze odevzdat';
 const DESCRIPTION_NEEDED = '<strong>Je potřeba doplnit:</strong><br>';
 const DESCRIPTION_SEND =
-  'Opravdu chcete odevzdat návrh?<br>(Po odeslání je třeba vyčkat na vyjádření zastupitelstva, jinak nelze hlasovat.)<br/>';
+  'Opravdu chcete odevzdat návrh?<br>(Po odeslání je třeba vyčkat na vyjádření zastupitelstva, hlasovat bude možné až poté.)<br/>';
 const DESCRIPTION_PHOTO_NEEDED =
   '- nahrát <strong>fotku</strong> ve formuláři<br>';
 const DESCRIPTION_MARKER_NEEDED = '- vybrat místo na <strong>mapě</strong><br>';
