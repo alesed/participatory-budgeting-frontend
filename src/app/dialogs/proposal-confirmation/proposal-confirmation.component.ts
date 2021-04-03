@@ -15,12 +15,13 @@ import { ProposalConfirmationDialogData } from './types/proposal-confirmation.ty
 const TITLE_SEND = 'Odevzdat';
 const TITLE_SEND_NOT_POSSIBLE = 'Nelze odevzdat';
 const DESCRIPTION_NEEDED = '<strong>Je potřeba doplnit:</strong><br>';
-const DESCRIPTION_SEND = 'Opravdu chcete odevzdat návrh?<br>';
+const DESCRIPTION_SEND =
+  'Opravdu chcete odevzdat návrh?<br>(Po odeslání je třeba vyčkat na vyjádření zastupitelstva, jinak nelze hlasovat.)<br/>';
 const DESCRIPTION_PHOTO_NEEDED =
   '- nahrát <strong>fotku</strong> ve formuláři<br>';
 const DESCRIPTION_MARKER_NEEDED = '- vybrat místo na <strong>mapě</strong><br>';
 const DESCRIPTION_EXPENSES =
-  '<br><strong>(Nezadali jste žádné náklady.)</strong>';
+  '<br><strong>Volitelné</strong> - nezadali jste žádné náklady';
 
 const TITLE_DISCARD = 'Zahodit';
 const DESCRIPTION_DISCARD = 'Opravdu chcete zahodit návrh?';

@@ -204,6 +204,8 @@ export class ProposalComponent implements OnInit {
    * Add new expense to array of expenses
    */
   _addExpense(): void {
+    if (!this._expenseName || !this._expenseCost) return;
+
     this._expenses.push({ name: this._expenseName, cost: this._expenseCost });
 
     this._expenseName = null;

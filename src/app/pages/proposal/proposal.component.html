@@ -152,7 +152,7 @@
             /></mat-form-field>
             <span class="inputs--spacer"></span>
             <mat-form-field class="expenses-add-input" appearance="standard">
-              <mat-label>Cena</mat-label>
+              <mat-label>Cena (kč)</mat-label>
               <input
                 matInput
                 placeholder="Cena"
@@ -161,8 +161,9 @@
                 name="expense-cost"
               />
             </mat-form-field>
-            <button mat-icon-button color="primary">
-              <mat-icon (click)="_addExpense()">add</mat-icon>
+            <span class="inputs--spacer"></span>
+            <button (click)="_addExpense()" mat-raised-button color="primary">
+              Přidat
             </button>
           </div>
           <div id="expenses-header">
@@ -173,7 +174,9 @@
           <div id="expenses-list" *ngFor="let expense of _expenses">
             <div class="expenses-item">
               <span class="expenses-item-name">{{ expense.name }}</span>
-              <span class="expenses-item-cost">{{ expense.cost }} kč</span>
+              <span class="expenses-item-cost"
+                >{{ expense.cost | number }} kč</span
+              >
               <button
                 (click)="_removeExpense(expense)"
                 mat-icon-button
