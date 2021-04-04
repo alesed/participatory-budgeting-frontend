@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './helpers/auth/guards/auth.guard';
+import { ChangeProjectComponent } from './helpers/change-project/change-project.component';
 import { PageNotFoundComponent } from './helpers/page-not-found/page-not-found.component';
 import { SubjectComponent } from './helpers/subject/subject.component';
 import { LoginComponent } from './login/login.component';
@@ -15,6 +16,10 @@ import { VoteComponent } from './pages/vote/vote.component';
 
 const routes: Routes = [
   { path: 'page-not-found', component: PageNotFoundComponent },
+  {
+    path: 'change-project/:hash/:projectId',
+    component: ChangeProjectComponent,
+  },
   {
     path: ':name',
     component: SubjectComponent,

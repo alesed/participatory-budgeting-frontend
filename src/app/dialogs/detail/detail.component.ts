@@ -13,6 +13,7 @@ import {
   SNACKBAR_CLOSE,
   SNACKBAR_DURATION,
 } from 'src/app/shared/types/shared.types';
+import { DetailExpenseComponent } from '../detail-expense/detail-expense.component';
 import { VoteProcessResponse } from '../vote-process/types/vote-process.types';
 import { VoteProcessComponent } from '../vote-process/vote-process.component';
 import { DetailGateway } from './gateways/detail-gateway';
@@ -37,14 +38,24 @@ const DECISION_NOT_DECIDED = 'nerozhodnuto';
 
 const VOTE_BUTTON_TITLE = 'Projekt není podpořen, nelze hlasovat!';
 
+const EDIT_MODE_ENABLED = 'Nyní můžete editovat projekt!';
+
+const PROJECT_SAVED_SUCCESS = 'Projekt je zaslán ke kontrole autorovi!';
+const PROJECT_SAVED_ERROR =
+  'Projekt nebylo možné změnit, zkuste změnu provést znovu!';
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
+  _loading = false;
+
   _showVoteSection = false;
   _showDecideSection = false;
+
+  _isEditingMode = false;
 
   _projectData: DetailProjectData;
   _projectPhoto: DetailPhotoData;
@@ -190,5 +201,68 @@ export class DetailComponent implements OnInit {
     const newHeight = sizeEvent.newHeight - 15.34;
 
     this._mapHeight = newHeight < 140 ? 140 : newHeight;
+  }
+
+  /**
+   * Enable admin to change data of project and warn with snackbar
+   */
+  _enableEditingMode(): void {
+    this._isEditingMode = true;
+
+    this._snackBar.open(EDIT_MODE_ENABLED, SNACKBAR_CLOSE, {
+      duration: SNACKBAR_DURATION,
+      panelClass: SNACKBAR_CLASS,
+    });
+  }
+
+  /**
+   * Save edited inputs to DB and show status snackbar
+   */
+  _saveEditedProject(): void {
+    this._loading = true;
+    this._gateway
+      .sendProjectUpdateAcceptation(
+        this._state.subject.name,
+        this._projectData,
+        this._projectExpenses
+      )
+      .subscribe((response: DetailResponse) => {
+        this._loading = false;
+        this._isEditingMode = false;
+
+        if (response.success === true) {
+          this._snackBar.open(PROJECT_SAVED_SUCCESS, SNACKBAR_CLOSE, {
+            duration: SNACKBAR_DURATION,
+            panelClass: SNACKBAR_CLASS,
+          });
+        } else {
+          this._snackBar.open(PROJECT_SAVED_ERROR, SNACKBAR_CLOSE, {
+            duration: SNACKBAR_DURATION,
+            panelClass: SNACKBAR_CLASS,
+          });
+        }
+      });
+  }
+
+  /**
+   * Edit expense by opening dialog with selected expense
+   */
+  _editExpense(expense: DetailExpensesData): void {
+    const expenseIndex = this._projectExpenses.findIndex(
+      (element) => element === expense
+    );
+
+    const dialogRef = this._dialog.open(DetailExpenseComponent, {
+      disableClose: false,
+      data: {
+        data: [...this._projectExpenses],
+        element: JSON.parse(JSON.stringify(expense)),
+        index: expenseIndex,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: DetailExpensesData[]) => {
+      if (result) this._projectExpenses = [...result];
+    });
   }
 }

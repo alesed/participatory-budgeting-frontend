@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>Změna nákladu</h1>
+
+<div mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Název</mat-label>
+    <input matInput placeholder="Název" [(ngModel)]="_expense.expense_name" />
+  </mat-form-field>
+  <mat-form-field class="input-cost" appearance="outline">
+    <mat-label>Cena (kč)</mat-label>
+    <input
+      matInput
+      placeholder="Cena"
+      type="number"
+      [(ngModel)]="_expense.expense_cost"
+    />
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <div class="space-between">
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="_closeDialog(false)"
+      cdkFocusInitial
+    >
+      Ponechat
+    </button>
+    <button mat-raised-button color="primary" (click)="_closeDialog(true)">
+      Změnit
+    </button>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -75,11 +75,17 @@ import { ProposalGateway } from './pages/proposal/gateways/proposal-gateway';
 import { ScheduleDeleteGateway } from './dialogs/schedule-delete/gateways/schedule-delete-gateway';
 import { SettingsConfirmationComponent } from './dialogs/settings-confirmation/settings-confirmation.component';
 import { SettingsConfirmationGateway } from './dialogs/settings-confirmation/gateways/settings-confirmation-gateway';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { SettingsPhotoConfirmationComponent } from './dialogs/settings-photo-confirmation/settings-photo-confirmation.component';
 import { WindowService } from './services/window.service';
 import { VoteProcessComponent } from './dialogs/vote-process/vote-process.component';
 import { VoteProcessGateway } from './dialogs/vote-process/gateways/vote-process-gateway';
+
+import localeCs from '@angular/common/locales/cs';
+import { DetailExpenseComponent } from './dialogs/detail-expense/detail-expense.component';
+import { ChangeProjectComponent } from './helpers/change-project/change-project.component';
+
+registerLocaleData(localeCs);
 
 @NgModule({
   declarations: [
@@ -114,6 +120,8 @@ import { VoteProcessGateway } from './dialogs/vote-process/gateways/vote-process
     SettingsConfirmationComponent,
     SettingsPhotoConfirmationComponent,
     VoteProcessComponent,
+    DetailExpenseComponent,
+    ChangeProjectComponent,
   ],
   imports: [
     CommonModule,
@@ -171,6 +179,7 @@ import { VoteProcessGateway } from './dialogs/vote-process/gateways/vote-process
     VoteProcessGateway,
     SharedGateway,
     WindowService,
+    { provide: LOCALE_ID, useValue: 'cs' },
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -185,6 +194,7 @@ import { VoteProcessGateway } from './dialogs/vote-process/gateways/vote-process
     SettingsConfirmationComponent,
     SettingsPhotoConfirmationComponent,
     VoteProcessComponent,
+    DetailExpenseComponent,
   ],
 })
 export class AppModule {}

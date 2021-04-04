@@ -4,7 +4,7 @@ export const DIALOG_WIDTH = '90%';
 export const DIALOG_HEIGHT = '90%';
 
 export const DATE_FORMAT = 'MM/DD/YYYY';
-export const DATE_FORMAT_VISIBLE = 'MM/DD/YYYY';
+export const DATE_FORMAT_VISIBLE = 'D. M. YYYY';
 
 export const MANDATORY_SCHEDULES = ['Navrhování', 'Hlasování', 'Výsledky'];
 

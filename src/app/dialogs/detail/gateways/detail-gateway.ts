@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+
 import {
   DetailExpensesData,
   DetailPhotoData,
@@ -46,6 +47,23 @@ export class DetailGateway {
         projectId: projectId,
         decision: decision,
         decisionText: decisionText,
+      }
+    );
+  }
+
+  sendProjectUpdateAcceptation(
+    subjectName: string,
+    projectData: DetailProjectData,
+    projectExpenses: DetailExpensesData[]
+  ): Observable<DetailResponse> {
+    console.log(projectData);
+    console.log(projectExpenses);
+    return this._httpClient.post<DetailResponse>(
+      this.baseUrl + '/api/detail-project/update',
+      {
+        subjectName: subjectName,
+        projectData: projectData,
+        projectExpenses: projectExpenses,
       }
     );
   }
