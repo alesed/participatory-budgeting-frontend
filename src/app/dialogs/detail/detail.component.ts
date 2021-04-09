@@ -42,7 +42,7 @@ const EDIT_MODE_ENABLED = 'Nyní můžete editovat projekt!';
 
 const PROJECT_SAVED_SUCCESS = 'Projekt je zaslán ke kontrole autorovi!';
 const PROJECT_SAVED_ERROR =
-  'Projekt nebylo možné změnit, zkuste změnu provést znovu!';
+  'Projekt nebylo možné změnit, lze provádět pouze jednu změnu v jeden moment!';
 
 @Component({
   selector: 'app-detail',
