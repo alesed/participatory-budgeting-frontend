@@ -84,6 +84,7 @@ import { VoteProcessGateway } from './dialogs/vote-process/gateways/vote-process
 import localeCs from '@angular/common/locales/cs';
 import { DetailExpenseComponent } from './dialogs/detail-expense/detail-expense.component';
 import { ChangeProjectComponent } from './helpers/change-project/change-project.component';
+import { ChangeProjectGateway } from './helpers/change-project/gateways/change-project-gateway';
 
 registerLocaleData(localeCs);
 
@@ -178,6 +179,7 @@ registerLocaleData(localeCs);
     ProposalGateway,
     VoteProcessGateway,
     SharedGateway,
+    ChangeProjectGateway,
     WindowService,
     { provide: LOCALE_ID, useValue: 'cs' },
   ],

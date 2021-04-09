@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ChangeProjectGateway } from './gateways/change-project-gateway';
+import { ChangeProjectResponse } from './types/change-project.types';
 
 const CHANGE_SUCCESS = 'Projekt byl úspěšně změňen!';
 const CHANGE_ERROR = 'Došlo k chybě při změně projektu, kontaktujte obec!';
@@ -12,23 +15,40 @@ export class ChangeProjectComponent implements OnInit {
   _loading = true;
   _resultMessage: string;
 
-  constructor() {
-    // empty
-  }
+  _hash: string;
+  _projectId: number;
+
+  constructor(
+    private _route: ActivatedRoute,
+    private _gateway: ChangeProjectGateway
+  ) {}
 
   ngOnInit(): void {
-    // TODO: real change of project data
-    setTimeout(() => {
-      const randomDecision = Math.floor(Math.random() * 10);
-      console.log(randomDecision);
+    const paramsURL = this._route.snapshot.params;
 
-      this._loading = false;
+    this._hash = paramsURL.hash;
+    this._projectId = +paramsURL.projectId;
 
-      if (randomDecision <= 8) {
-        this._resultMessage = CHANGE_SUCCESS;
-      } else {
-        this._resultMessage = CHANGE_ERROR;
-      }
-    }, 1000);
+    this._resolveProjectUpdate();
+  }
+
+  /**
+   * Grab hash and projectId from URL params and resolve update of project
+   */
+  private _resolveProjectUpdate(): void {
+    console.log(this._hash);
+    console.log(this._projectId);
+
+    this._gateway
+      .updateDesiredProject(this._hash, this._projectId)
+      .subscribe((result: ChangeProjectResponse) => {
+        if (result.success === true) {
+          this._resultMessage = CHANGE_SUCCESS;
+        } else {
+          this._resultMessage = CHANGE_ERROR;
+        }
+
+        this._loading = false;
+      });
   }
 }

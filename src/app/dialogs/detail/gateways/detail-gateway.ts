@@ -64,6 +64,7 @@ export class DetailGateway {
         subjectName: subjectName,
         projectData: projectData,
         projectExpenses: projectExpenses,
+        baseUrl: location.origin,
       }
     );
   }
