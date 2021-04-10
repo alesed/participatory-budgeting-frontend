@@ -1,8 +1,10 @@
 /* eslint-disable */
 
+const compression = require('compression');
 const express = require('express');
 const path = require('path');
 const app = express();
+app.use(compression());
 app.use(express.static(__dirname + '/dist/participatory-budgeting'));
 app.get('/*', function (req, res) {
   res.sendFile(
