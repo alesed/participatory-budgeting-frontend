@@ -48,8 +48,6 @@ export class UsersCreateComponent implements OnInit {
    */
   private _getRandomlyGeneratedPassword(): void {
     const generatedPassword = Math.random().toString(36).slice(2);
-    console.log(generatedPassword);
-
     this._userForm.setValue({
       name: null,
       surname: null,

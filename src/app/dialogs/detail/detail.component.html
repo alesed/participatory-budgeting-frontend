@@ -73,7 +73,7 @@
           <input
             [readonly]="!_isEditingMode"
             matInput
-            [ngModel]="_projectData.project_name"
+            [(ngModel)]="_projectData.project_name"
             type="text"
             name="name"
           />
@@ -84,7 +84,7 @@
           <input
             [readonly]="!_isEditingMode"
             matInput
-            [ngModel]="_projectData.author"
+            [(ngModel)]="_projectData.author"
             type="text"
             name="name"
           />
@@ -107,7 +107,7 @@
             [readonly]="!_isEditingMode"
             rows="8"
             matInput
-            [ngModel]="_projectData.description"
+            [(ngModel)]="_projectData.description"
             type="text"
           ></textarea>
         </mat-form-field>
