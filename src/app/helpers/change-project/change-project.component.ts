@@ -36,9 +36,6 @@ export class ChangeProjectComponent implements OnInit {
    * Grab hash and projectId from URL params and resolve update of project
    */
   private _resolveProjectUpdate(): void {
-    console.log(this._hash);
-    console.log(this._projectId);
-
     this._gateway
       .updateDesiredProject(this._hash, this._projectId)
       .subscribe((result: ChangeProjectResponse) => {

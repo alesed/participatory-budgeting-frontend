@@ -56,8 +56,6 @@ export class DetailGateway {
     projectData: DetailProjectData,
     projectExpenses: DetailExpensesData[]
   ): Observable<DetailResponse> {
-    console.log(projectData);
-    console.log(projectExpenses);
     return this._httpClient.post<DetailResponse>(
       this.baseUrl + '/api/detail-project/update',
       {
