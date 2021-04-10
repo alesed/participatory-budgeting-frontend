@@ -3,10 +3,15 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { WindowService } from 'src/app/services/window.service';
 import firebase from 'firebase/app';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { VoteProcessGateway } from './gateways/vote-process-gateway';
 import { VoteProcessResponse } from './types/vote-process.types';
 import { AppStateService } from 'src/app/services/app-state.service';
+import { ProcessingPersonalDataComponent } from '../processing-personal-data/processing-personal-data.component';
 
 const PHONE_PATTERN = '^(\\+\\d{12}|\\d{9})$';
 
@@ -38,7 +43,8 @@ export class VoteProcessComponent implements AfterViewInit {
     private _window: WindowService,
     private _fireAuth: AngularFireAuth,
     private _gateway: VoteProcessGateway,
-    private _state: AppStateService
+    private _state: AppStateService,
+    public _dialog: MatDialog
   ) {
     //
   }
@@ -107,5 +113,12 @@ export class VoteProcessComponent implements AfterViewInit {
       });
 
     this._loading = false;
+  }
+
+  _openPersonalDataDialog(): void {
+    this._dialog.open(ProcessingPersonalDataComponent, {
+      disableClose: false,
+      data: true,
+    });
   }
 }

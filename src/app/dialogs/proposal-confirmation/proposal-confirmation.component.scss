@@ -12,10 +12,9 @@
 }
 
 .link {
-  color: $primary;
+  color: $warn-text;
   cursor: pointer;
   &:hover {
-    color: $primary-darker;
     text-decoration: underline;
   }
 }

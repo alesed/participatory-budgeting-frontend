@@ -1,3 +1,5 @@
+@import '../../../variables';
+
 .vote-process__layout {
   display: flex;
   flex-direction: row;
@@ -8,4 +10,18 @@
   position: relative;
   top: 4px;
   height: 51.51px;
+}
+
+.delimiter {
+  border-top: 2px solid black;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.link {
+  color: $warn-text;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
