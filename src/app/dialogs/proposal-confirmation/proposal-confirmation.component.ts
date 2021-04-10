@@ -1,6 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { finalize } from 'rxjs/operators';
 import { ProposalGateway } from 'src/app/pages/proposal/gateways/proposal-gateway';
 import {
@@ -10,6 +14,7 @@ import {
   ProposalSendData,
 } from 'src/app/pages/proposal/types/proposal.types';
 import { AppStateService } from 'src/app/services/app-state.service';
+import { ProcessingPersonalDataComponent } from '../processing-personal-data/processing-personal-data.component';
 import { ProposalConfirmationDialogData } from './types/proposal-confirmation.types';
 
 const TITLE_SEND = 'Odevzdat';
@@ -44,7 +49,8 @@ export class ProposalConfirmationComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: ProposalConfirmationDialogData,
     private _state: AppStateService,
     private _firestore: AngularFireStorage,
-    private _gateway: ProposalGateway
+    private _gateway: ProposalGateway,
+    public _dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -158,5 +164,11 @@ export class ProposalConfirmationComponent implements OnInit {
         photoFirebasePath: photoPath,
       },
     };
+  }
+
+  _openPersonalDataDialog(): void {
+    this._dialog.open(ProcessingPersonalDataComponent, {
+      disableClose: false,
+    });
   }
 }

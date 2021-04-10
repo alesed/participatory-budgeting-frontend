@@ -85,6 +85,7 @@ import localeCs from '@angular/common/locales/cs';
 import { DetailExpenseComponent } from './dialogs/detail-expense/detail-expense.component';
 import { ChangeProjectComponent } from './helpers/change-project/change-project.component';
 import { ChangeProjectGateway } from './helpers/change-project/gateways/change-project-gateway';
+import { ProcessingPersonalDataComponent } from './dialogs/processing-personal-data/processing-personal-data.component';
 
 registerLocaleData(localeCs);
 
@@ -123,6 +124,7 @@ registerLocaleData(localeCs);
     VoteProcessComponent,
     DetailExpenseComponent,
     ChangeProjectComponent,
+    ProcessingPersonalDataComponent,
   ],
   imports: [
     CommonModule,
@@ -197,6 +199,7 @@ registerLocaleData(localeCs);
     SettingsPhotoConfirmationComponent,
     VoteProcessComponent,
     DetailExpenseComponent,
+    ProcessingPersonalDataComponent,
   ],
 })
 export class AppModule {}

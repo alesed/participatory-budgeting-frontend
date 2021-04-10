@@ -1,6 +1,13 @@
 <h1 mat-dialog-title>{{ _title }}</h1>
 <div mat-dialog-content>
   <p [innerHTML]="_description"></p>
+  <hr class="delimiter" />
+  <p>
+    Odesláním projektu souhlasíte se
+    <a class="link" (click)="_openPersonalDataDialog()"
+      >zpracováním osobních údajů</a
+    >
+  </p>
 </div>
 <div mat-dialog-actions>
   <div class="space-between">

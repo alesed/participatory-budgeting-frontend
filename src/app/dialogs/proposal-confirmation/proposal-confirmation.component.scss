@@ -1,5 +1,21 @@
+@import '../../../variables';
+
 .space-between {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.delimiter {
+  border-top: 2px solid black;
+  margin-bottom: 12px;
+}
+
+.link {
+  color: $primary;
+  cursor: pointer;
+  &:hover {
+    color: $primary-darker;
+    text-decoration: underline;
+  }
 }
