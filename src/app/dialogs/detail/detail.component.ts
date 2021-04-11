@@ -63,6 +63,8 @@ export class DetailComponent implements OnInit {
 
   _mapHeight: number;
 
+  DetailDialogType = DetailDialogType;
+
   constructor(
     public _state: AppStateService,
     public _dialogRef: MatDialogRef<DetailComponent>,
@@ -231,6 +233,7 @@ export class DetailComponent implements OnInit {
         this._isEditingMode = false;
 
         if (response.success === true) {
+          this._loadProjectData(this.data.projectId);
           this._snackBar.open(PROJECT_SAVED_SUCCESS, SNACKBAR_CLOSE, {
             duration: SNACKBAR_DURATION,
             panelClass: SNACKBAR_CLASS,

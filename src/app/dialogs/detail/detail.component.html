@@ -111,6 +111,18 @@
             type="text"
           ></textarea>
         </mat-form-field>
+        <div *ngIf="_projectData.is_changed" class="changed-text">
+          * Projekt byl v minulosti pozměněn zastupitelstvem!
+        </div>
+        <div
+          *ngIf="
+            data.dialogType === DetailDialogType.Admin &&
+            _projectData.is_changed === false
+          "
+          class="warning-text"
+        >
+          * Zastupitel žádá o změnu v projektu, čeká se na vyjádření autora!
+        </div>
       </mat-card>
     </div>
     <div id="detail__others">

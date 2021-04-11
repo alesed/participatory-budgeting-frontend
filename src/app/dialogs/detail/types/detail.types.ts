@@ -25,6 +25,7 @@ export interface DetailProjectData {
   geo_longtitude: number;
   decision: boolean;
   decision_text: string;
+  is_changed: boolean;
 }
 
 export interface DetailPhotoData {
