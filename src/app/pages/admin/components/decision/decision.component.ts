@@ -9,6 +9,7 @@ import {
 } from 'src/app/dialogs/detail/types/detail.types';
 import { AppStateService } from 'src/app/services/app-state.service';
 import {
+  PAGE_PROJECT_DECISIONS,
   SNACKBAR_CLASS,
   SNACKBAR_CLOSE,
   SNACKBAR_DURATION,
@@ -36,12 +37,7 @@ const DECISION_ERROR = 'Při rozhodování projektu došlo k chybě!';
 })
 export class DecisionComponent implements OnInit {
   _selectedCategory = new FormControl(DecisionFilterCategory.All);
-  _categories = [
-    { name: 'Všechny projekty', value: DecisionFilterCategory.All },
-    { name: 'Projekty k rozhodnutí', value: DecisionFilterCategory.NotDecided },
-    { name: 'Podpořené projekty', value: DecisionFilterCategory.Supported },
-    { name: 'Zamítnuté projekty', value: DecisionFilterCategory.Denied },
-  ];
+  _categories = PAGE_PROJECT_DECISIONS;
 
   _textSearch = '';
 

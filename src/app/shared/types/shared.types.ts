@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+import { DecisionFilterCategory } from 'src/app/pages/admin/components/decision/types/decision.types';
 
 export const DIALOG_WIDTH = '90%';
 export const DIALOG_HEIGHT = '90%';
@@ -23,6 +24,13 @@ export const PAGE_CATEGORIES = <ProjectCategory[]>[
   { name: 'Zeleň', value: 'Zelen' },
   { name: 'Zvířata', value: 'Zvirata' },
   { name: 'Jiné', value: 'Jine' },
+];
+
+export const PAGE_PROJECT_DECISIONS = <ProjectSorting[]>[
+  { name: 'Všechny projekty', value: DecisionFilterCategory.All },
+  { name: 'Projekty k rozhodnutí', value: DecisionFilterCategory.NotDecided },
+  { name: 'Podpořené projekty', value: DecisionFilterCategory.Supported },
+  { name: 'Zamítnuté projekty', value: DecisionFilterCategory.Denied },
 ];
 
 export enum PageSortingEnum {

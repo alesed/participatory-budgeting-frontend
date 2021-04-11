@@ -14,11 +14,13 @@ import {
   DIALOG_HEIGHT,
   DIALOG_WIDTH,
   PAGE_CATEGORIES,
+  PAGE_PROJECT_DECISIONS,
   PAGE_SORTING,
   SNACKBAR_CLASS,
   SNACKBAR_CLOSE,
   SNACKBAR_DURATION,
 } from 'src/app/shared/types/shared.types';
+import { DecisionFilterCategory } from '../admin/components/decision/types/decision.types';
 import { VoteGateway } from './gateways/vote-gateway';
 import { VoteProject } from './types/vote.types';
 
@@ -35,6 +37,9 @@ const VOTE_SUCCESS = 'Hlas byl projektu úspěšně přidán!';
 export class VoteComponent implements OnInit {
   _selectedCategory = new FormControl();
   _categories = PAGE_CATEGORIES;
+
+  _selectedDecision = new FormControl(1);
+  _decisions = PAGE_PROJECT_DECISIONS;
 
   _selectedSorting = new FormControl(1);
   _sorting = PAGE_SORTING;
@@ -89,12 +94,13 @@ export class VoteComponent implements OnInit {
       .loadProjects(this._state.subject.name, value.toString())
       .subscribe((data: VoteProject[]) => {
         this._voteItems = [...data];
-        this._filterProjectByName();
+        this._filterDo();
       });
   }
 
   _filterDo(): void {
     this._filterProjectByName();
+    this._filterProjectsByDecision();
   }
 
   /**
@@ -109,6 +115,33 @@ export class VoteComponent implements OnInit {
       );
     } else {
       this._filteredVoteItems = [...this._voteItems];
+    }
+  }
+
+  /**
+   * Filter projects by selected decision from decision dropdown
+   */
+  private _filterProjectsByDecision(): void {
+    this._filteredVoteItems = this._filteredVoteItems.filter((item) =>
+      this._decideProjectVisibility(item.decision)
+    );
+  }
+
+  /**
+   * Decide if row is visible (three possible states)
+   * @param {boolean} decision
+   * @returns {boolean}
+   */
+  private _decideProjectVisibility(decision: boolean): boolean {
+    switch (this._selectedDecision.value) {
+      case DecisionFilterCategory.NotDecided:
+        return decision === null;
+      case DecisionFilterCategory.Supported:
+        return decision === true;
+      case DecisionFilterCategory.Denied:
+        return decision === false;
+      default:
+        return true;
     }
   }
 
