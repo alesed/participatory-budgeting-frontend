@@ -193,6 +193,10 @@ footer .spaced {
   -ms-flex-direction: row;
   flex-direction: row;
   padding-top: 8%;
+
+  @media only screen and (max-width: 1920px) {
+    padding-bottom: 12%;
+  }
 }
 
 #contact #my-form-status-contact {
@@ -327,6 +331,10 @@ footer .spaced {
 #home #home-text {
   margin-top: 16%;
   width: 40%;
+
+  @media only screen and (max-width: 1920px) {
+    margin-top: 10%;
+  }
 
   @media only screen and (max-width: 600px) {
     margin-top: 22%;
