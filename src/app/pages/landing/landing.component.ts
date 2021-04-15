@@ -48,6 +48,8 @@ export class LandingComponent implements OnInit {
     message: new FormControl(null, [Validators.required]),
   });
 
+  _isSideMenuOpened = false;
+
   constructor(
     public _dialog: MatDialog,
     private _snackBar: MatSnackBar,
@@ -105,6 +107,9 @@ export class LandingComponent implements OnInit {
       });
   }
 
+  /**
+   * Reset form and make it untouched
+   */
   private _resetProposalForm(): void {
     this._proposalForm.setValue({
       subjectName: null,
@@ -161,6 +166,9 @@ export class LandingComponent implements OnInit {
       });
   }
 
+  /**
+   * Reset form and make it untouched
+   */
   private _resetContactForm(): void {
     this._contactForm.setValue({
       author: null,
@@ -170,5 +178,13 @@ export class LandingComponent implements OnInit {
     });
     this._contactForm.markAsUntouched();
     this._contactForm.markAsPristine();
+  }
+
+  /**
+   * Toggle side menu (open or close)
+   */
+  _toggleSideMenu(): void {
+    this._isSideMenuOpened = !this._isSideMenuOpened;
+    console.log(this._isSideMenuOpened);
   }
 }

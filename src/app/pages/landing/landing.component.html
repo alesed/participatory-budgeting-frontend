@@ -7,11 +7,47 @@
       <li><a href="#application">žádost</a></li>
       <li><a href="#contact">kontakty</a></li>
     </ul>
-    <div class="burger">
+    <div class="burger" (click)="_toggleSideMenu()">
       <div class="line1"></div>
       <div class="line2"></div>
       <div class="line3"></div>
     </div>
+    <ul class="side-menu" [class.side-menu__show]="_isSideMenuOpened">
+      <li>
+        <a class="side-menu__link" (click)="_toggleSideMenu()" href="#home"
+          >domů</a
+        >
+      </li>
+      <li>
+        <a
+          class="side-menu__link"
+          (click)="_toggleSideMenu()"
+          href="#informations"
+          >informace</a
+        >
+      </li>
+      <li>
+        <a
+          class="side-menu__link"
+          (click)="_toggleSideMenu()"
+          href="#references"
+          >reference</a
+        >
+      </li>
+      <li>
+        <a
+          class="side-menu__link"
+          (click)="_toggleSideMenu()"
+          href="#application"
+          >žádost</a
+        >
+      </li>
+      <li>
+        <a class="side-menu__link" (click)="_toggleSideMenu()" href="#contact"
+          >kontakty</a
+        >
+      </li>
+    </ul>
   </div>
 </nav>
 
