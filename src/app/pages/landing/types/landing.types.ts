@@ -3,3 +3,10 @@ export interface LandingProposalFormData {
   email: string;
   phone: string;
 }
+
+export interface LandingContactFormData {
+  author: string;
+  email: string;
+  phone: string;
+  message: string;
+}

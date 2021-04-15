@@ -172,43 +172,84 @@
 
   <section id="contact">
     <div id="contact-form">
-      <form
-        id="my-form-contact"
-        action="https://formspree.io/f/xknpjykp"
-        method="POST"
-      >
-        <!-- municipality -->
-        <label class="input-label" for="municipality">Jméno:</label><br />
-        <input
-          class="input-value"
-          type="text"
-          name="municipality"
-          required
-        /><br />
+      <form [formGroup]="_contactForm">
+        <!-- name -->
+        <div class="label-space">
+          <label class="input-label" for="name">Jméno:</label>
+          <span
+            *ngIf="
+              _contactForm.controls.author.hasError('required') &&
+              (_contactForm.dirty || _contactForm.touched)
+            "
+          >
+            <span class="alert-message">* Povinný údaj</span>
+          </span>
+        </div>
+        <input class="input-value" type="text" formControlName="author" />
+        <br />
         <!-- mail -->
-        <label class="input-label" for="mail">Email:</label><br />
-        <input class="input-value" type="email" name="email" required /><br />
+        <div class="label-space">
+          <label class="input-label" for="name">Email:</label>
+          <span
+            *ngIf="
+              (_contactForm.controls.email.hasError('required') ||
+                _contactForm.controls.email.hasError('email')) &&
+              (_contactForm.dirty || _contactForm.touched)
+            "
+          >
+            <span class="alert-message"
+              >* Povinný údaj (jan.novak@mail.cz)</span
+            >
+          </span>
+        </div>
+        <input class="input-value" type="email" formControlName="email" />
+        <br />
         <!-- phone -->
-        <label class="input-label" for="phone">Telefonní číslo:</label><br />
-        <input
-          class="input-value"
-          type="tel"
-          name="phone"
-          pattern="[0-9]{9}"
-          required
-        /><br />
+        <div class="label-space">
+          <label class="input-label" for="name">Telefonní číslo:</label>
+          <span
+            *ngIf="
+              (_contactForm.controls.phone.hasError('required') ||
+                _contactForm.controls.phone.hasError('pattern')) &&
+              (_contactForm.dirty || _contactForm.touched)
+            "
+          >
+            <span class="alert-message"
+              >* Povinný údaj (123456789 nebo +420123456789)</span
+            >
+          </span>
+        </div>
+        <input class="input-value" type="tel" formControlName="phone" />
+        <br />
         <!-- message -->
-        <label class="input-label" for="message">Zpráva:</label><br />
-        <input
-          class="input-value input-textarea"
+        <div class="label-space">
+          <label class="input-label" for="message">Zpráva:</label>
+          <span
+            *ngIf="
+              (_contactForm.controls.message.hasError('required') ||
+                _contactForm.controls.message.hasError('pattern')) &&
+              (_contactForm.dirty || _contactForm.touched)
+            "
+          >
+            <span class="alert-message">* Povinný údaj</span>
+          </span>
+        </div>
+        <textarea
+          class="input-value ignore-height"
+          formControlName="message"
           type="text"
-          name="message"
-          required
-        /><br />
-
-        <button class="btn" id="my-form-button-contact">Odeslat</button>
-        <button class="btn" id="my-form-status-contact" disabled></button>
+          rows="15"
+        ></textarea
+        ><br />
       </form>
+      <button
+        class="btn"
+        id="my-form-button-contact"
+        [disabled]="!_contactForm.valid || _loadingContact"
+        (click)="_sendContactEmail()"
+      >
+        Odeslat
+      </button>
     </div>
 
     <div id="contact-details">

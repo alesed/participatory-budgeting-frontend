@@ -231,12 +231,18 @@ footer .spaced {
   border-radius: 4px;
 }
 
+.ignore-height {
+  height: unset !important;
+  padding: 4px;
+}
+
 #contact #contact-form .input-value:last-child {
   margin-bottom: 120px;
 }
 
 #contact #contact-form .input-textarea {
   height: 240px;
+  align-items: flex-start;
 }
 
 #contact #contact-details {

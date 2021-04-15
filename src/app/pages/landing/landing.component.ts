@@ -10,7 +10,10 @@ import {
 } from 'src/app/shared/types/shared.types';
 import { ContactResponse } from '../contact/types/contact.types';
 import { LandingGateway } from './gateways/landing-gateway';
-import { LandingProposalFormData } from './types/landing.types';
+import {
+  LandingContactFormData,
+  LandingProposalFormData,
+} from './types/landing.types';
 
 const EMAIL_SUCCESS = 'Email byl úspěšně odeslán, obec se Vám brzo ozve!';
 const EMAIL_ERROR = 'Při odesílání emailu došlo k chybě!';
@@ -33,6 +36,16 @@ export class LandingComponent implements OnInit {
       Validators.required,
       Validators.pattern(PHONE_PATTERN),
     ]),
+  });
+
+  _contactForm = new FormGroup({
+    author: new FormControl(null, [Validators.required]),
+    email: new FormControl(null, [Validators.required, Validators.email]),
+    phone: new FormControl(null, [
+      Validators.required,
+      Validators.pattern(PHONE_PATTERN),
+    ]),
+    message: new FormControl(null, [Validators.required]),
   });
 
   constructor(
@@ -67,14 +80,14 @@ export class LandingComponent implements OnInit {
   private _sendProposalEmailDo(): void {
     this._loadingProposal = true;
 
-    const sendData = <LandingProposalFormData>{
+    const sendProposalData = <LandingProposalFormData>{
       subjectName: this._proposalForm.value.subjectName,
       email: this._proposalForm.value.email,
       phone: this._proposalForm.value.phone,
     };
 
     this._gateway
-      .sendProposalEmail(sendData)
+      .sendProposalEmail(sendProposalData)
       .subscribe((response: ContactResponse) => {
         if (response.success === true) {
           this._snackBar.open(EMAIL_SUCCESS, SNACKBAR_CLOSE, {
@@ -102,9 +115,60 @@ export class LandingComponent implements OnInit {
     this._proposalForm.markAsPristine();
   }
 
+  /**
+   * Open send email confirmation dialog if captcha allows
+   * @param {ContactFormData} data
+   */
   _sendContactEmail(): void {
-    // TODO:
-    console.log('testContact');
+    const dialogRef = this._dialog.open(LandingConfirmationComponent, {
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((decision: boolean) => {
+      if (decision === true) this._sendContactEmailDo();
+    });
+  }
+
+  /**
+   * Send data of email to server and handle response
+   */
+  private _sendContactEmailDo(): void {
     this._loadingContact = true;
+
+    const sendContactData = <LandingContactFormData>{
+      author: this._contactForm.value.author,
+      email: this._contactForm.value.email,
+      phone: this._contactForm.value.phone,
+      message: this._contactForm.value.message,
+    };
+
+    this._gateway
+      .sendContactEmail(sendContactData)
+      .subscribe((response: ContactResponse) => {
+        if (response.success === true) {
+          this._snackBar.open(EMAIL_SUCCESS, SNACKBAR_CLOSE, {
+            duration: SNACKBAR_DURATION,
+            panelClass: SNACKBAR_LANDING_CLASS,
+          });
+          this._resetContactForm();
+        } else {
+          this._snackBar.open(EMAIL_ERROR, SNACKBAR_CLOSE, {
+            duration: SNACKBAR_DURATION,
+            panelClass: SNACKBAR_LANDING_CLASS,
+          });
+        }
+        this._loadingContact = false;
+      });
+  }
+
+  private _resetContactForm(): void {
+    this._contactForm.setValue({
+      author: null,
+      email: null,
+      phone: null,
+      message: null,
+    });
+    this._contactForm.markAsUntouched();
+    this._contactForm.markAsPristine();
   }
 }
