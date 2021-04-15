@@ -68,7 +68,7 @@ export class LandingComponent implements OnInit {
     this._loadingProposal = true;
 
     const sendData = <LandingProposalFormData>{
-      name: this._proposalForm.value.name,
+      subjectName: this._proposalForm.value.subjectName,
       email: this._proposalForm.value.email,
       phone: this._proposalForm.value.phone,
     };
@@ -81,6 +81,7 @@ export class LandingComponent implements OnInit {
             duration: SNACKBAR_DURATION,
             panelClass: SNACKBAR_LANDING_CLASS,
           });
+          this._resetProposalForm();
         } else {
           this._snackBar.open(EMAIL_ERROR, SNACKBAR_CLOSE, {
             duration: SNACKBAR_DURATION,
@@ -89,6 +90,16 @@ export class LandingComponent implements OnInit {
         }
         this._loadingProposal = false;
       });
+  }
+
+  private _resetProposalForm(): void {
+    this._proposalForm.setValue({
+      subjectName: null,
+      email: null,
+      phone: null,
+    });
+    this._proposalForm.markAsUntouched();
+    this._proposalForm.markAsPristine();
   }
 
   _sendContactEmail(): void {

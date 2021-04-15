@@ -1,5 +1,5 @@
 export interface LandingProposalFormData {
-  name: string;
+  subjectName: string;
   email: string;
   phone: string;
 }
