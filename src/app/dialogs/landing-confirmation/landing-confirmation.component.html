@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Potvrzení</h1>
+<div mat-dialog-content>
+  <h2>Opravdu chcete odeslat email?</h2>
+</div>
+<div mat-dialog-actions>
+  <div class="space-between">
+    <button
+      class="btn btn-warning"
+      (click)="_closeDialog(false)"
+      cdkFocusInitial
+    >
+      Ne
+    </button>
+    <button class="btn" (click)="_closeDialog(true)">Ano</button>
+  </div>
+</div>

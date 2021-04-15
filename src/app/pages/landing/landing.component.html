@@ -1,0 +1,260 @@
+<nav>
+  <div id="navbar">
+    <ul id="nav-menu">
+      <li><a href="#home">domů</a></li>
+      <li><a href="#informations">informace</a></li>
+      <li><a href="#references">reference</a></li>
+      <li><a href="#application">žádost</a></li>
+      <li><a href="#contact">kontakty</a></li>
+    </ul>
+    <div class="burger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <section id="home">
+    <div id="home-text">
+      <h1>PARTICIPATIVNÍ ROZPOČET</h1>
+      <h2>
+        Umožněte občanům aktivně spolupracovat s vedením města. Nechte lidi
+        rozhodovat o svém okolí.
+      </h2>
+      <h2>Využijte online hlasování a ušetřete tak spoustu času!</h2>
+      <button class="btn">
+        <a href="#application">chci participativní rozpočet</a>
+      </button>
+    </div>
+  </section>
+
+  <section id="informations">
+    <div id="informations-text">
+      <div class="text-left">
+        <p>
+          Proč vlastně zapojovat občany do tvorby rozpočtu? Obvyklá námitka zní:
+          „Jde o příliš komplikovaný proces, kterému běžní lidé nerozumí.
+          Nechápou, jak se rozpočet města tvoří a jak je složité sladit příjmy i
+          výdaje města tak, aby si mohlo dovolit investovat do vlastního
+          rozvoje“.
+        </p>
+      </div>
+      <div class="text-right">
+        <p>
+          Tento pohled ukazuje základní nepochopení toho, jak participativní
+          rozpočtování funguje. Občané opravdu často nemají představu, kolik
+          město musí nejdříve zaplatit mandatorních výdajů, než se dostane na
+          položky, jako je rozvoj infrastruktury, nebo investice například do
+          opravy náměstí, vlastních školních či sportovních zařízení, ale třeba
+          také „neinvestiční“ volnočasové programy pro mládež a další věci,
+          které jsme si zvykli vnímat jako běžný standard života ve městě.
+        </p>
+      </div>
+      <div class="text-left">
+        <p>
+          Na druhou stranu občané vědí nejlépe, co by jim zlepšilo podmínky pro
+          život v jejich bezprostředním okolí. Často to může být něco, o čem se
+          vedení města jen těžko dozví, či co se může na první pohled zdát
+          nepodstatné. Když se to ale stane předmětem rozhodování širší skupiny
+          obyvatel ve městě, může důležitost vyjít najevo. Právě proto má smysl
+          se participativním rozpočtováním zabývat. V průběhu participativního
+          rozpočtování se navíc občané více zapojují do veřejného dění a
+          dozvídají se o tvorbě rozpočtu města. Účastníci začnou budovat či
+          obnovovat vztahy mezi sebou v místě, kde žijí, a lidmi na radnici.
+        </p>
+      </div>
+      <div class="text-right">
+        <p>
+          Postup, ve kterém je důraz kladen na samostatnou aktivitu jednotlivých
+          občanů či formálně i neformálně organizovaných skupin obyvatel. Vedení
+          města stanoví jasná a jednoduchá pravidla, která určují, s jakými
+          nápady mohou do tvorby rozpočtu vstupovat. Občané stojí za svými
+          návrhy a úřad je pro ně partnerem, který jim pomáhá jejich návrhy
+          dopracovat do realizovatelné podoby a zároveň zajišťuje jejich
+          propagaci mezi běžnou veřejností. O realizovatelných projektech v
+          závěru probíhá hlasování přístupné všem obyvatelům města. Výhodou
+          tohoto postupu je motivace občanů k řešení jim blízkých témat či
+          problémů – občané se do značné míry identifikují se svým návrhem.
+          Oproti „společné tvorbě rozpočtu“ znamená značně nižší časovou
+          náročnost, kterou rozhodování na účastníky klade.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="references">
+    <ul class="cards">
+      <li class="cards__item">
+        <div class="card">
+          <div class="card__image card__image--town1"></div>
+          <div class="card__content">
+            <div class="card__title">Svinov</div>
+            <p class="card__text">
+              Díky svému dynamickému rozvoji se městský obvod Svinov stává stále
+              významnější součástí Statutárního města Ostravy a roste i jeho
+              význam v rámci celého Moravskoslezského kraje.
+            </p>
+            <button
+              class="btn btn--block card__btn"
+              [routerLink]="['svinov', 'home']"
+            >
+              <span>Odkaz</span>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="application">
+    <div id="application-form">
+      <form [formGroup]="_proposalForm">
+        <!-- name -->
+        <div class="label-space">
+          <label class="input-label" for="name">Jméno obce:</label>
+          <span
+            *ngIf="
+              _proposalForm.controls.subjectName.hasError('required') &&
+              (_proposalForm.dirty || _proposalForm.touched)
+            "
+          >
+            <span class="alert-message">* Povinný údaj</span>
+          </span>
+        </div>
+        <input class="input-value" type="text" formControlName="subjectName" />
+        <br />
+        <!-- mail -->
+        <div class="label-space">
+          <label class="input-label" for="name">Email:</label>
+          <span
+            *ngIf="
+              (_proposalForm.controls.email.hasError('required') ||
+                _proposalForm.controls.email.hasError('email')) &&
+              (_proposalForm.dirty || _proposalForm.touched)
+            "
+          >
+            <span class="alert-message"
+              >* Povinný údaj (jan.novak@mail.cz)</span
+            >
+          </span>
+        </div>
+        <input class="input-value" type="email" formControlName="email" />
+        <br />
+        <!-- phone -->
+        <div class="label-space">
+          <label class="input-label" for="name">Telefonní číslo:</label>
+          <span
+            *ngIf="
+              (_proposalForm.controls.phone.hasError('required') ||
+                _proposalForm.controls.phone.hasError('pattern')) &&
+              (_proposalForm.dirty || _proposalForm.touched)
+            "
+          >
+            <span class="alert-message"
+              >* Povinný údaj (123456789 nebo +420123456789)</span
+            >
+          </span>
+        </div>
+        <input class="input-value" type="tel" formControlName="phone" /><br />
+      </form>
+      <button
+        class="btn"
+        id="my-form-button-application"
+        [disabled]="!_proposalForm.valid || _loadingProposal"
+        (click)="_sendProposalEmail()"
+      >
+        Odeslat
+      </button>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div id="contact-form">
+      <form
+        id="my-form-contact"
+        action="https://formspree.io/f/xknpjykp"
+        method="POST"
+      >
+        <!-- municipality -->
+        <label class="input-label" for="municipality">Jméno obce:</label><br />
+        <input
+          class="input-value"
+          type="text"
+          name="municipality"
+          required
+        /><br />
+        <!-- mail -->
+        <label class="input-label" for="mail">Email:</label><br />
+        <input class="input-value" type="email" name="email" required /><br />
+        <!-- phone -->
+        <label class="input-label" for="phone">Telefonní číslo:</label><br />
+        <input
+          class="input-value"
+          type="tel"
+          name="phone"
+          pattern="[0-9]{9}"
+          required
+        /><br />
+        <!-- message -->
+        <label class="input-label" for="message">Zpráva:</label><br />
+        <input
+          class="input-value input-textarea"
+          type="text"
+          name="message"
+          required
+        /><br />
+
+        <button class="btn" id="my-form-button-contact">Odeslat</button>
+        <button class="btn" id="my-form-status-contact" disabled></button>
+      </form>
+    </div>
+
+    <div id="contact-details">
+      <div id="contact-details-text">
+        <h2 class="info-text">Aleš Sedláček</h2>
+        <h2 class="info-text">Ostrava</h2>
+        <h2 class="info-text">ales.sedlacek5@gmail.com</h2>
+        <h2 class="info-text">+420 732 868 982</h2>
+      </div>
+    </div>
+
+    <div id="contact-socials">
+      <ul class="social-icons">
+        <li>
+          <a href="http://www.facebook.com"
+            ><img src="../../../assets/facebook.png"
+          /></a>
+        </li>
+        <li>
+          <a href="http://www.instagram.com"
+            ><img src="../../../assets/instagram.png"
+          /></a>
+        </li>
+        <li>
+          <a href="http://www.linkedin.com"
+            ><img src="../../../assets/Linkedin.png"
+          /></a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="spaced">
+    <p>Copyright @ Aleš Sedláček, Všechna práva vyhrazena.</p>
+    <p>
+      <span class="footer__text-spacer"
+        >Informativní text převzat z
+        <a href="https://www.participativni-rozpocet.cz/"
+          >participativní-rozpočet.cz</a
+        ></span
+      >
+      <a href="https://www.freepik.com/vectors/people"
+        >Grafika vytvořena skrze vectorpouch - www.freepik.com</a
+      >
+    </p>
+  </div>
+</footer>

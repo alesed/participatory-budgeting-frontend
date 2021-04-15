@@ -86,6 +86,9 @@ import { DetailExpenseComponent } from './dialogs/detail-expense/detail-expense.
 import { ChangeProjectComponent } from './helpers/change-project/change-project.component';
 import { ChangeProjectGateway } from './helpers/change-project/gateways/change-project-gateway';
 import { ProcessingPersonalDataComponent } from './dialogs/processing-personal-data/processing-personal-data.component';
+import { LandingComponent } from './pages/landing/landing.component';
+import { LandingGateway } from './pages/landing/gateways/landing-gateway';
+import { LandingConfirmationComponent } from './dialogs/landing-confirmation/landing-confirmation.component';
 
 registerLocaleData(localeCs);
 
@@ -125,6 +128,8 @@ registerLocaleData(localeCs);
     DetailExpenseComponent,
     ChangeProjectComponent,
     ProcessingPersonalDataComponent,
+    LandingComponent,
+    LandingConfirmationComponent,
   ],
   imports: [
     CommonModule,
@@ -182,6 +187,7 @@ registerLocaleData(localeCs);
     VoteProcessGateway,
     SharedGateway,
     ChangeProjectGateway,
+    LandingGateway,
     WindowService,
     { provide: LOCALE_ID, useValue: 'cs' },
   ],
@@ -200,6 +206,7 @@ registerLocaleData(localeCs);
     VoteProcessComponent,
     DetailExpenseComponent,
     ProcessingPersonalDataComponent,
+    LandingConfirmationComponent,
   ],
 })
 export class AppModule {}

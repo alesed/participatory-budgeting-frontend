@@ -1,4 +1,8 @@
-<mat-drawer-container id="drawer-container" fullscreen>
+<mat-drawer-container
+  *ngIf="_showNavigationBar"
+  id="drawer-container"
+  fullscreen
+>
   <mat-drawer #drawer mode="over" position="end">
     <app-side-navigation
       (toggleHamburger)="_toggleHamburger()"
@@ -7,3 +11,7 @@
   <app-navigation (toggleHamburger)="_toggleHamburger()"></app-navigation>
   <router-outlet></router-outlet>
 </mat-drawer-container>
+
+<ng-container *ngIf="!_showNavigationBar">
+  <router-outlet></router-outlet>
+</ng-container>

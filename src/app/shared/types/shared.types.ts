@@ -11,6 +11,7 @@ export const MANDATORY_SCHEDULES = ['Navrhování', 'Hlasování', 'Výsledky'];
 
 export const SNACKBAR_CLOSE = 'Zavřít';
 export const SNACKBAR_CLASS = 'success-dialog';
+export const SNACKBAR_LANDING_CLASS = 'success-landing-dialog';
 export const SNACKBAR_DURATION = 8000;
 
 export const PAGE_CATEGORIES = <ProjectCategory[]>[

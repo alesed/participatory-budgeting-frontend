@@ -9,12 +9,14 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { HomeComponent } from './pages/home/home.component';
+import { LandingComponent } from './pages/landing/landing.component';
 import { ProposalComponent } from './pages/proposal/proposal.component';
 import { ResultComponent } from './pages/result/result.component';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { VoteComponent } from './pages/vote/vote.component';
 
 const routes: Routes = [
+  { path: '', component: LandingComponent },
   { path: 'page-not-found', component: PageNotFoundComponent },
   {
     path: 'change-project/:hash/:projectId',

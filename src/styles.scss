@@ -45,6 +45,7 @@ $participatory-budgeting-theme: mat-light-theme(
 html,
 body {
   height: 100%;
+  scroll-behavior: smooth;
 }
 body {
   margin: 0;
@@ -106,6 +107,16 @@ mat-form-field {
   }
 }
 
+.success-landing-dialog {
+  color: white !important;
+  background-color: #7463ff !important;
+  .mat-simple-snackbar-action {
+    background-color: red !important;
+    color: white !important;
+    border-radius: 4px !important;
+  }
+}
+
 @keyframes spinner {
   to {
     transform: rotate(360deg);
@@ -126,4 +137,5 @@ mat-form-field {
   border: 2px solid #ffffff;
   border-top-color: #000000;
   animation: spinner 0.8s linear infinite;
+  z-index: 100;
 }

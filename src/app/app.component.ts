@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
 
-const LAYOUT_REGEX_CONDITION = '\\/.+\\/(admin)\\/?';
+const LAYOUT_REGEX_CONDITION = '\\/#.+';
 
 @Component({
   selector: 'app-root',
@@ -17,9 +17,14 @@ export class AppComponent {
   constructor(router: Router) {
     router.events.subscribe((result) => {
       if (result instanceof NavigationEnd) {
-        this._regex.test(result.urlAfterRedirects)
-          ? (this._showNavigationBar = false)
-          : (this._showNavigationBar = true);
+        if (
+          result.urlAfterRedirects.length === 1 ||
+          this._regex.test(result.urlAfterRedirects)
+        ) {
+          this._showNavigationBar = false;
+        } else {
+          this._showNavigationBar = true;
+        }
       }
     });
   }

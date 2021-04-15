@@ -1,0 +1,42 @@
+.btn {
+  background-color: #7463ff;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  padding: 8px 24px 8px 24px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  border-radius: 4px;
+}
+
+.btn-warning {
+  background-color: red;
+}
+
+.btn:active {
+  border: none;
+}
+
+.btn:disabled {
+  opacity: 0.3;
+}
+
+h1 {
+  font-size: 44px;
+  margin-bottom: 48px;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 48px;
+}
+
+.space-between {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
