@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppStateService } from 'src/app/services/app-state.service';
 import { environment } from 'src/environments/environment';
 
 import {
@@ -12,7 +13,10 @@ import {
 
 @Injectable()
 export class DetailGateway {
-  constructor(private _httpClient: HttpClient) {}
+  constructor(
+    private _httpClient: HttpClient,
+    private _state: AppStateService
+  ) {}
 
   baseUrl = environment.baseUrl;
 
@@ -41,13 +45,21 @@ export class DetailGateway {
     decision: boolean,
     decisionText: string
   ): Observable<DetailResponse> {
+    const header = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        `Bearer ${this._state.userToken}`
+      ),
+    };
+
     return this._httpClient.post<DetailResponse>(
       this.baseUrl + '/api/detail-project/decide',
       {
         projectId: projectId,
         decision: decision,
         decisionText: decisionText,
-      }
+      },
+      header
     );
   }
 
@@ -56,6 +68,13 @@ export class DetailGateway {
     projectData: DetailProjectData,
     projectExpenses: DetailExpensesData[]
   ): Observable<DetailResponse> {
+    const header = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        `Bearer ${this._state.userToken}`
+      ),
+    };
+
     return this._httpClient.post<DetailResponse>(
       this.baseUrl + '/api/detail-project/update',
       {
@@ -63,7 +82,8 @@ export class DetailGateway {
         projectData: projectData,
         projectExpenses: projectExpenses,
         baseUrl: location.origin,
-      }
+      },
+      header
     );
   }
 }

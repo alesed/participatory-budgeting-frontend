@@ -1,39 +1,41 @@
 <div class="page__container">
   <mat-tab-group>
-    <mat-tab label="Seznam projektů k rozhodnutí">
-      <ng-template matTabContent>
-        <mat-card class="admin__tab">
-          <app-decision></app-decision>
-        </mat-card>
-      </ng-template>
-    </mat-tab>
-    <mat-tab *ngIf="_isOwner" label="Nastavení harmonogramu">
-      <ng-template matTabContent>
-        <mat-card class="admin__tab"
-          ><app-change-schedule></app-change-schedule>
-        </mat-card>
-      </ng-template>
-    </mat-tab>
-    <mat-tab *ngIf="_isOwner" label="Vymezení oblasti">
-      <ng-template matTabContent>
-        <mat-card class="admin__tab">
-          <app-polygon></app-polygon>
-        </mat-card>
-      </ng-template>
-    </mat-tab>
-    <mat-tab *ngIf="_isOwner" label="Nastavení systému">
-      <ng-template matTabContent>
-        <mat-card class="admin__tab">
-          <app-settings></app-settings>
-        </mat-card>
-      </ng-template>
-    </mat-tab>
-    <mat-tab *ngIf="_isOwner" label="Nastavení uživatelů">
-      <ng-template matTabContent>
-        <mat-card class="admin__tab">
-          <app-users></app-users>
-        </mat-card>
-      </ng-template>
-    </mat-tab>
+    <ng-container *ngIf="_state.userToken">
+      <mat-tab label="Seznam projektů k rozhodnutí">
+        <ng-template matTabContent>
+          <mat-card class="admin__tab">
+            <app-decision></app-decision>
+          </mat-card>
+        </ng-template>
+      </mat-tab>
+      <mat-tab *ngIf="_isOwner" label="Nastavení harmonogramu">
+        <ng-template matTabContent>
+          <mat-card class="admin__tab"
+            ><app-change-schedule></app-change-schedule>
+          </mat-card>
+        </ng-template>
+      </mat-tab>
+      <mat-tab *ngIf="_isOwner" label="Vymezení oblasti">
+        <ng-template matTabContent>
+          <mat-card class="admin__tab">
+            <app-polygon></app-polygon>
+          </mat-card>
+        </ng-template>
+      </mat-tab>
+      <mat-tab *ngIf="_isOwner" label="Nastavení systému">
+        <ng-template matTabContent>
+          <mat-card class="admin__tab">
+            <app-settings></app-settings>
+          </mat-card>
+        </ng-template>
+      </mat-tab>
+      <mat-tab *ngIf="_isOwner" label="Nastavení uživatelů">
+        <ng-template matTabContent>
+          <mat-card class="admin__tab">
+            <app-users></app-users>
+          </mat-card>
+        </ng-template>
+      </mat-tab>
+    </ng-container>
   </mat-tab-group>
 </div>

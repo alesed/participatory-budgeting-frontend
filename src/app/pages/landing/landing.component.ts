@@ -185,6 +185,5 @@ export class LandingComponent implements OnInit {
    */
   _toggleSideMenu(): void {
     this._isSideMenuOpened = !this._isSideMenuOpened;
-    console.log(this._isSideMenuOpened);
   }
 }

@@ -6,4 +6,5 @@ export class AppStateService {
   subject: SubjectData;
   logoUrl: string;
   canVote = false;
+  userToken: string;
 }

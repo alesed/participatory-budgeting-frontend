@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppStateService } from 'src/app/services/app-state.service';
 import { environment } from 'src/environments/environment';
 import {
   ScheduleDetailCreateData,
@@ -10,7 +11,10 @@ import {
 
 @Injectable()
 export class ScheduleDetailGateway {
-  constructor(private _httpClient: HttpClient) {}
+  constructor(
+    private _httpClient: HttpClient,
+    private _state: AppStateService
+  ) {}
 
   baseUrl = environment.baseUrl;
 
@@ -22,9 +26,17 @@ export class ScheduleDetailGateway {
   updateSchedule(
     updateData: ScheduleDetailData
   ): Observable<ScheduleDetailResponse> {
+    const header = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        `Bearer ${this._state.userToken}`
+      ),
+    };
+
     return this._httpClient.put<ScheduleDetailResponse>(
       this.baseUrl + `/api/admin/schedule/update`,
-      updateData
+      updateData,
+      header
     );
   }
 
@@ -36,9 +48,17 @@ export class ScheduleDetailGateway {
   createSchedule(
     createData: ScheduleDetailCreateData
   ): Observable<ScheduleDetailResponse> {
+    const header = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        `Bearer ${this._state.userToken}`
+      ),
+    };
+
     return this._httpClient.post<ScheduleDetailResponse>(
       this.baseUrl + `/api/admin/schedule/create`,
-      createData
+      createData,
+      header
     );
   }
 }

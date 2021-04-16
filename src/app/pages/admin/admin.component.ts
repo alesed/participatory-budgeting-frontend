@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/helpers/auth/auth.service';
 import firebase from 'firebase/app';
 import { UserDetails } from 'src/app/helpers/auth/types/auth.types';
+import { AppStateService } from 'src/app/services/app-state.service';
 
 @Component({
   selector: 'app-admin',
@@ -12,13 +13,21 @@ export class AdminComponent implements OnInit {
   _isOwner = false;
   user: firebase.User;
 
-  constructor(private _authService: AuthService) {}
+  constructor(
+    private _authService: AuthService,
+    public _state: AppStateService
+  ) {}
 
   ngOnInit(): void {
     this._authService.getUserState().subscribe((user) => {
-      this.user = user;
       if (!user) return;
-      this._getUserOwnershipStatus(this.user.uid);
+
+      user.getIdToken().then((token) => {
+        this._state.userToken = token;
+
+        this.user = user;
+        this._getUserOwnershipStatus(this.user.uid);
+      });
     });
   }
 
