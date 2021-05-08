@@ -111,6 +111,9 @@ export class HistoryComponent implements OnInit {
     this._filterProjectBySortingOrder();
   }
 
+  /**
+   * Choose one of sorting type and sort already filtered items
+   */
   _filterProjectBySortingOrder(): void {
     switch (this._selectedSorting.value) {
       case PageSortingEnum.VOTES_ASC:

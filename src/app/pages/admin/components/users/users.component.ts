@@ -48,6 +48,10 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  /**
+   * Fetch users from Firebase and handle created user event
+   * @param {boolean} disableUpdate
+   */
   private _getAllSubjectUsers(disableUpdate?: boolean): void {
     this._users = [];
     this._authService
@@ -82,7 +86,6 @@ export class UsersComponent implements OnInit {
 
     createDialog.afterClosed().subscribe((newUser: UserCreateData) => {
       if (newUser) this._authService.createUser(newUser);
-      // TODO: after creating user data is not updated and snackbar neither
     });
   }
 
@@ -97,6 +100,10 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  /**
+   * After change of user disabled status (access to intenal system) show snackbar
+   * @param {UserDetails} user
+   */
   private _updateDisabledStatus(user: UserDetails): void {
     this._authService
       .changeDisabledStatus(user)
